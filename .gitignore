@@ -134,3 +134,4 @@ dmypy.json
 .idea/modules.xml
 .idea/vcs.xml
 object_detection/yolo/models/yolov3.weights
+.idea/workspace.xml
