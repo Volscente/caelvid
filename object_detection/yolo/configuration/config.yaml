@@ -1,0 +1,5 @@
+# File Paths
+classes_file_path: './classes/yolov3_classes.txt'
+model_structure_file_path: './models/yolov3.cfg'
+model_weights_file_path: './models/yolov3.weights'
+test_data_path: './data/test_images/'
