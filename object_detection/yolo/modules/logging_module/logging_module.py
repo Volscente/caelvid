@@ -1,10 +1,10 @@
-# Import Standard Modules
+# Import Standard Libraries
 import logging.config
 import yaml
 import os
 
 # Set root path
-os.chdir(os.environ['YOLO_OBJECT_DETECTION'])
+os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 
 def get_logger(logger_name: str) -> logging.Logger:
