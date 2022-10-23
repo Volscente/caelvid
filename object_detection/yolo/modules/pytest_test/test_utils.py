@@ -29,7 +29,7 @@ def test_environment_variable(test_object_detector: ObjectDetector):
     ('config.yaml', 'classes_file_path', './classes/yolov3_classes.txt'),
     ('config.yaml', 'model_structure_file_path', './models/yolov3.cfg'),
     ('config.yaml', 'model_weights_file_path', './models/yolov3.weights'),
-    ('config.yaml', 'test_data_path', './data/test_images/'),
+    ('config.yaml', 'test_data_path', './data/test_images/')
 ])
 def test_read_configuration(test_config_file: str,
                             test_config: str,
