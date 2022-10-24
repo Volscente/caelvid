@@ -1,7 +1,6 @@
 # Import Standard Modules
 import os
 import yaml
-import sys
 
 # Set root path
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
@@ -45,7 +44,7 @@ def read_configuration(file_name: str) -> dict:
 
         logger.error('read_configuration - Unable to read {}'.format(file_name))
         logger.error(e)
-        sys.exit(1)
+        raise e
 
     else:
 

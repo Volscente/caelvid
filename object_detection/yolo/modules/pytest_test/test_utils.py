@@ -19,7 +19,6 @@ def test_environment_variable(test_object_detector: ObjectDetector):
         test_object_detector: ObjectDetector instance
 
     Returns:
-        Boolean
     """
 
     assert os.getcwd() == os.environ['YOLO_OBJECT_DETECTION_PATH']
@@ -35,7 +34,7 @@ def test_read_configuration(test_config_file: str,
                             test_config: str,
                             expected_value: str):
     """
-    Test the function src.utils.utils.read_configuration
+    Test the function modules.utils.utils.read_configuration
 
     Args:
         test_config_file: String configuration file name
@@ -43,7 +42,6 @@ def test_read_configuration(test_config_file: str,
         expected_value: String configuration expected value
 
     Returns:
-        Boolean
     """
 
     # Read configuration file
@@ -57,6 +55,15 @@ def test_read_configuration(test_config_file: str,
 ])
 def test_read_configuration_exception(test_config_file: str,
                                       expected_error: FileNotFoundError):
+    """
+    Test the exceptions to the function modules.utils.utils.read_configuration
+
+    Args:
+        test_config_file: String configuration file name
+        expected_error: Exception instance
+
+    Returns:
+    """
 
     with pytest.raises(expected_error):
 

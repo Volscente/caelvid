@@ -2,6 +2,7 @@
 import logging.config
 import yaml
 import os
+import sys
 
 # Set root path
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
@@ -24,35 +25,11 @@ def get_logger(logger_name: str) -> logging.Logger:
         with open('./configuration/log_configuration.yaml', 'r') as file:
             log_config = yaml.safe_load(file.read())
 
-    except FileNotFoundError:
-
-        raise FileNotFoundError
-
-    except Exception as e:
-
-        raise e
-
-    try:
-
         # Set logging configuration file
         logging.config.dictConfig(log_config)
 
-    except ValueError:
-
-        raise ValueError
-
-    except Exception as e:
-
-        raise e
-
-    try:
-
         # Retrieve the requested logger
         logger = logging.getLogger(logger_name)
-
-    except TypeError:
-
-        raise TypeError
 
     except Exception as e:
 
