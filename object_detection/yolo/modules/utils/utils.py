@@ -54,5 +54,5 @@ def read_configuration(file_name: str) -> dict:
 
         logger.info('read_configuration - End')
 
-    return configuration
+        return configuration
 
