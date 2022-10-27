@@ -20,6 +20,7 @@ class ObjectDetector:
     A class that implements an object detector through YOLO v3
 
     Attributes:
+        rest_api: Boolean identifying if the image comes from a REST API
         logger: logging.Logger object for log messages
         config: Dictionary object for configuration items
         classes: List of String classes
@@ -30,6 +31,7 @@ class ObjectDetector:
     """
 
     def __init__(self,
+                 rest_api: bool = False,
                  configuration_file: str = 'config.yaml'):
         """
         Initialise a ObjectDetector object for perform object detection operations
@@ -41,6 +43,9 @@ class ObjectDetector:
         # Setup Logger
         self.logger = get_logger(__class__.__name__)
         self.logger.info('__init__ - Instancing the class')
+
+        # Set rest_api
+        self.rest_api = rest_api
 
         self.logger.info('__init__ - Read configuration file')
 
