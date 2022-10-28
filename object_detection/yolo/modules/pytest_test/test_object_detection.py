@@ -2,6 +2,8 @@
 import os
 import pytest
 
+from typing import Tuple
+
 # Set root path
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
@@ -51,9 +53,13 @@ def test__read_neural_network(test_object_detector: ObjectDetector,
     assert input_layer in test_object_detector.neural_network_layers
 
 
-@pytest.mark.parametrize('input_image_path', [
-    './data/test_images/image_1.jpeg'
+@pytest.mark.parametrize('image_path, size, scale_factor, swap_rb, crop', [
+    ('./data/test_images/image_1.jpeg', (416, 416), 1/255.0, True, False)
 ])
-def test_read_blob_from_local_image(input_image_path):
+def test_read_blob_from_local_image(image_path: str,
+                                    size: Tuple[int, int],
+                                    scale_factor: float,
+                                    swap_rb: bool,
+                                    crop: bool):
 
-    read_blob_from_local_image(input_image_path)
+    blob = read_blob_from_local_image(image_path)
