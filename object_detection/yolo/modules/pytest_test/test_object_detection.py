@@ -8,6 +8,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 # Import Package Libraries
 from modules.pytest_test.test_utils_fixtures import test_object_detector
 from modules.object_detection.object_detection import ObjectDetector
+from modules.object_detection.object_detection_utils import read_blob_from_local_image
 
 
 @pytest.mark.parametrize('input_class', [
@@ -48,3 +49,11 @@ def test__read_neural_network(test_object_detector: ObjectDetector,
     """
 
     assert input_layer in test_object_detector.neural_network_layers
+
+
+@pytest.mark.parametrize('input_image_path', [
+    './data/test_images/image_1.jpeg'
+])
+def test_read_blob_from_local_image(input_image_path):
+
+    read_blob_from_local_image(input_image_path)
