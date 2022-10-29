@@ -26,13 +26,13 @@ def read_blob_from_local_image(image_path: str,
 
     Args:
         image_path: String image path
-        size:
-        scale_factor:
-        swap_rb:
-        crop:
+        size: Tuple integer resize dimensions
+        scale_factor: Float pixel scale factor
+        swap_rb: Bool flag for swapping R channel with B channel
+        crop: Bool flag to crop the image
 
     Returns:
-
+        blob_image: numpy.ndarray Blob
     """
 
     logger.info('read_blob_from_local_image - Start')
