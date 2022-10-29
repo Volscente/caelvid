@@ -22,9 +22,10 @@ def read_blob_from_local_image(image_path: str,
                                swap_rb: bool,
                                crop: bool) -> np.ndarray:
     """
+    Create a 4-dimensional (images, channels, width, height) Blob from a OpenCV image
 
     Args:
-        image_path:
+        image_path: String image path
         size:
         scale_factor:
         swap_rb:
