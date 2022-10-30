@@ -61,5 +61,24 @@ def test_read_blob_from_local_image(image_path: str,
                                     scale_factor: float,
                                     swap_rb: bool,
                                     crop: bool):
+    """
+    Test the function modules.object_detection.object_detection_utils.read_blob_from_local_image
 
-    blob = read_blob_from_local_image(image_path)
+    Args:
+        image_path: String image path
+        size: Tuple integer resize dimensions
+        scale_factor: Float pixel scale factor
+        swap_rb: Bool flag for swapping R channel with B channel
+        crop: Bool flag to crop the image
+
+    Returns:
+    """
+
+    # Apply the function
+    blob = read_blob_from_local_image(image_path,
+                                      size,
+                                      scale_factor,
+                                      swap_rb,
+                                      crop)
+
+
