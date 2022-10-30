@@ -191,10 +191,10 @@ class ObjectDetector:
         """
 
         # Retrieve blobFromImage parameters
-        size = self.config['']
-        scale_factor = self.config['']
-        swap_rb = self.config['']
-        crop = self.config['']
+        size = self.config['blob_size']
+        scale_factor = self.config['blob_scale_factor']
+        swap_rb = self.config['blob_swap_rb']
+        crop = self.config['blob_crop']
 
         # Switch between REST API and local usage for retrieving the Blob of the Image
         if self.rest_api:
