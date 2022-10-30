@@ -179,3 +179,24 @@ class ObjectDetector:
         self.neural_network = neural_network
 
         self.logger.info('__read_neural_network - End')
+
+    def detect_single_object(self, image):
+        """
+
+        Args:
+            image:
+
+        Returns:
+
+        """
+
+        # Retrieve blobFromImage parameters
+        size = self.config['']
+        scale_factor = self.config['']
+        swap_rb = self.config['']
+        crop = self.config['']
+
+        # Switch between REST API and local usage for retrieving the Blob of the Image
+        if self.rest_api:
+
+            blob = read_blob_from_rest_api_image(image, )
