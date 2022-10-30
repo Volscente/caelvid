@@ -53,23 +53,25 @@ def test__read_neural_network(test_object_detector: ObjectDetector,
     assert input_layer in test_object_detector.neural_network_layers
 
 
-@pytest.mark.parametrize('image_path, size, scale_factor, swap_rb, crop', [
-    ('./data/test_images/image_1.jpeg', (416, 416), 1/255.0, True, False)
+@pytest.mark.parametrize('image_path, size, scale_factor, swap_rb, crop, expected_shape', [
+    ('./data/test_images/image_1.jpeg', (416, 416), 1/255.0, True, False, (1, 3, 416, 416))
 ])
 def test_read_blob_from_local_image(image_path: str,
                                     size: Tuple[int, int],
                                     scale_factor: float,
                                     swap_rb: bool,
-                                    crop: bool):
+                                    crop: bool,
+                                    expected_shape: Tuple[int, int, int, int]):
     """
     Test the function modules.object_detection.object_detection_utils.read_blob_from_local_image
 
     Args:
         image_path: String image path
-        size: Tuple integer resize dimensions
+        size: Tuple[int, int] resize dimensions
         scale_factor: Float pixel scale factor
         swap_rb: Bool flag for swapping R channel with B channel
         crop: Bool flag to crop the image
+        expected_shape: Tuple[int, int, int, int] expected resulting blob shape
 
     Returns:
     """
@@ -80,5 +82,7 @@ def test_read_blob_from_local_image(image_path: str,
                                       scale_factor,
                                       swap_rb,
                                       crop)
+
+    assert blob.shape == expected_shape
 
 
