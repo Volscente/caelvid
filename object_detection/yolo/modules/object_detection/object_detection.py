@@ -177,14 +177,14 @@ class ObjectDetector:
 
         self.logger.info('__read_neural_network - End')
 
-    def detect_local_single_object(self, image):
+    def detect_local_single_object(self, image_path):
         """
 
         Args:
-            image:
+            image_path: String image path from local File System
 
         Returns:
-
+            
         """
 
         # Retrieve blobFromImage parameters
@@ -194,7 +194,7 @@ class ObjectDetector:
         crop = self.config['blob_crop']
 
         # Retrieve Blob image from local file
-        blob = read_blob_from_local_image(image,
+        blob = read_blob_from_local_image(image_path,
                                           size,
                                           scale_factor,
                                           swap_rb,
