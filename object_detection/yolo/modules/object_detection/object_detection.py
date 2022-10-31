@@ -223,4 +223,7 @@ class ObjectDetector:
 
             self.logger.info('detect_local_single_object - Successfully set neural network input')
 
-    def
+
+def __get_out_layers(self):
+
+    pass
