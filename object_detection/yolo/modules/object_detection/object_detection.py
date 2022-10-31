@@ -203,3 +203,24 @@ class ObjectDetector:
                                           scale_factor,
                                           swap_rb,
                                           crop)
+
+        self.logger.info('detect_local_single_object - Blob from local image successfully created')
+
+        self.logger.info('detect_local_single_object - Setting neural network input')
+
+        try:
+
+            # Set Blob as the neural network input
+            self.neural_network.setInput(blob)
+
+        except Exception as e:
+
+            self.logger.error('detect_local_single_object - Unable to set neural network input')
+            self.logger.error(e)
+            sys.exit(1)
+
+        else:
+
+            self.logger.info('detect_local_single_object - Successfully set neural network input')
+
+    def
