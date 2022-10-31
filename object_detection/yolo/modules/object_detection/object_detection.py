@@ -13,6 +13,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 # Import Package Libraries
 from modules.logging_module.logging_module import get_logger
 from modules.utils.utils import read_configuration
+from modules.object_detection.object_detection_utils import read_blob_from_local_image
 
 
 class ObjectDetector:
@@ -31,7 +32,6 @@ class ObjectDetector:
     """
 
     def __init__(self,
-                 rest_api: bool = False,
                  configuration_file: str = 'config.yaml'):
         """
         Initialise a ObjectDetector object for perform object detection operations
@@ -43,9 +43,6 @@ class ObjectDetector:
         # Setup Logger
         self.logger = get_logger(__class__.__name__)
         self.logger.info('__init__ - Instancing the class')
-
-        # Set rest_api
-        self.rest_api = rest_api
 
         self.logger.info('__init__ - Read configuration file')
 
@@ -180,7 +177,7 @@ class ObjectDetector:
 
         self.logger.info('__read_neural_network - End')
 
-    def detect_single_object(self, image):
+    def detect_local_single_object(self, image):
         """
 
         Args:
@@ -196,7 +193,9 @@ class ObjectDetector:
         swap_rb = self.config['blob_swap_rb']
         crop = self.config['blob_crop']
 
-        # Switch between REST API and local usage for retrieving the Blob of the Image
-        if self.rest_api:
-
-            blob = read_blob_from_rest_api_image(image, )
+        # Retrieve Blob image from local file
+        blob = read_blob_from_local_image(image,
+                                          size,
+                                          scale_factor,
+                                          swap_rb,
+                                          crop)
