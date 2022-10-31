@@ -223,7 +223,18 @@ class ObjectDetector:
 
             self.logger.info('detect_local_single_object - Successfully set neural network input')
 
+    def __get_out_layers(self) -> List:
+        """
+        Retrieve the list of output layers names
 
-def __get_out_layers(self):
+        Returns:
+            output_layers: List of output layers names
+        """
 
-    pass
+        # Retrieve layer's names
+        layer_names = self.neural_network.getLayerNames()
+
+        # Get output layers names since by the non-output connected ones
+        output_layers = [layer_names[i - 1] for i in neural_network.getUnconnectedOutLayers()]
+
+        return output_layers
