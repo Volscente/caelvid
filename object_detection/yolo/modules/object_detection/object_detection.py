@@ -26,6 +26,7 @@ class ObjectDetector:
         config: Dictionary object for configuration items
         classes: List of String classes
         neural_network: cv2.dnn.Net instance of DarkNet Yolo v3
+        output_layers: List of String neural network output layer names
 
     Methods:
 
@@ -62,8 +63,8 @@ class ObjectDetector:
                                    self.config['model_weights_file_path'],
                                    self.config['model_structure_file_path'])
 
-        # Retrieve neural network layers
-        self.neural_network_layers = self.neural_network.getLayerNames()
+        # Retrieve neural network output layers
+        self.output_layers = self.__get_output_layers()
 
     def __read_classes(self,
                        classes_file_path: str) -> List:
@@ -257,7 +258,7 @@ class ObjectDetector:
             self.logger.info('__get_out_layers - Computing the output layers names')
 
             # Get output layers names since by the non-output connected ones
-            output_layers = [layer_names[i - 1] for i in neural_network.getUnconnectedOutLayers()]
+            output_layers = [layer_names[i - 1] for i in self.neural_network.getUnconnectedOutLayers()]
 
             self.logger.info('__get_out_layers - End')
 

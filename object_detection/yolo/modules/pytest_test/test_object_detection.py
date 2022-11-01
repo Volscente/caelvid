@@ -87,7 +87,19 @@ def test_read_blob_from_local_image(image_path: str,
 
 
 @pytest.mark.parametrize('test_output_layer', [
-
+    'yolo_82',
+    'yolo_94',
+    'yolo_106'
 ])
-def test__get_output_layers():
-    pass
+def test__get_output_layers(test_object_detector,
+                            test_output_layer: str):
+    """
+    Test the function modules.object_detection.object_detection.ObjectDetector.__get_output_layers
+    Args:
+        test_object_detector: ObjectDetector instance
+        test_output_layer: String output layer name
+
+    Returns:
+    """
+
+    assert test_output_layer in test_object_detector.output_layers
