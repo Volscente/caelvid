@@ -52,6 +52,7 @@ class ObjectDetector:
         # Initialise instance variables
         self.classes = []
         self.neural_network = None
+        self.output_layers = []
 
         # Read YOLO v3 classes
         self.__read_classes(self.config['classes_file_path'])
@@ -224,7 +225,7 @@ class ObjectDetector:
 
             self.logger.info('detect_local_single_object - Successfully set neural network input')
 
-    def __get_out_layers(self) -> List:
+    def __get_output_layers(self) -> List:
         """
         Retrieve the list of output layers names
 

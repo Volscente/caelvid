@@ -86,3 +86,8 @@ def test_read_blob_from_local_image(image_path: str,
     assert blob.shape == expected_shape
 
 
+@pytest.mark.parametrize('test_output_layer', [
+
+])
+def test__get_output_layers():
+    pass
