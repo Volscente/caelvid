@@ -177,7 +177,8 @@ class ObjectDetector:
 
         self.logger.info('__read_neural_network - End')
 
-    def detect_local_single_object(self, image_path):
+    def detect_local_single_object(self,
+                                   image_path) -> str:
         """
 
         Args:
