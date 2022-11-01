@@ -232,10 +232,32 @@ class ObjectDetector:
             output_layers: List of output layers names
         """
 
-        # Retrieve layer's names
-        layer_names = self.neural_network.getLayerNames()
+        self.logger.info('__get_out_layers - Start')
 
-        # Get output layers names since by the non-output connected ones
-        output_layers = [layer_names[i - 1] for i in neural_network.getUnconnectedOutLayers()]
+        try:
 
-        return output_layers
+            self.logger.info('__get_out_layers - Retrieving layers names')
+
+            # Retrieve layer's names
+            layer_names = self.neural_network.getLayerNames()
+
+        except Exception as e:
+
+            self.logger.error('__get_out_layers - Unable to retrieve layers names')
+            self.logger.error(e)
+            sys.exit(1)
+
+        else:
+
+            self.logger.info('__get_out_layers - Successfully retrieved layers names')
+
+        finally:
+
+            self.logger.info('__get_out_layers - Computing the output layers names')
+
+            # Get output layers names since by the non-output connected ones
+            output_layers = [layer_names[i - 1] for i in neural_network.getUnconnectedOutLayers()]
+
+            self.logger.info('__get_out_layers - End')
+
+            return output_layers
