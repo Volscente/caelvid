@@ -263,3 +263,16 @@ class ObjectDetector:
         else:
 
             self.logger.info('detect_local_single_object - Successfully set neural network input')
+
+        self.logger.info('detect_local_single_object - Feed forwarding the input through the Neural Network')
+
+        try:
+
+            # Compute the model's output of only the three output layers
+            outputs = self.neural_network.forward(self.output_layers)
+
+        except Exception as e:
+
+            self.logger.error('detect_local_single_object - Unable to feed forward the input through the Neural Network')
+            self.logger.error(e)
+            sys.exit(1)
