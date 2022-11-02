@@ -179,6 +179,44 @@ class ObjectDetector:
 
         self.logger.info('__read_neural_network - End')
 
+    def __get_output_layers(self) -> List:
+        """
+        Retrieve the list of output layers names
+
+        Returns:
+            output_layers: List of output layers names
+        """
+
+        self.logger.info('__get_out_layers - Start')
+
+        try:
+
+            self.logger.info('__get_out_layers - Retrieving layers names')
+
+            # Retrieve layer's names
+            layer_names = self.neural_network.getLayerNames()
+
+        except Exception as e:
+
+            self.logger.error('__get_out_layers - Unable to retrieve layers names')
+            self.logger.error(e)
+            sys.exit(1)
+
+        else:
+
+            self.logger.info('__get_out_layers - Successfully retrieved layers names')
+
+        finally:
+
+            self.logger.info('__get_out_layers - Computing the output layers names')
+
+            # Get output layers names since by the non-output connected ones
+            output_layers = [layer_names[i - 1] for i in self.neural_network.getUnconnectedOutLayers()]
+
+            self.logger.info('__get_out_layers - End')
+
+            return output_layers
+
     def detect_local_single_object(self,
                                    image_path) -> str:
         """
@@ -225,41 +263,3 @@ class ObjectDetector:
         else:
 
             self.logger.info('detect_local_single_object - Successfully set neural network input')
-
-    def __get_output_layers(self) -> List:
-        """
-        Retrieve the list of output layers names
-
-        Returns:
-            output_layers: List of output layers names
-        """
-
-        self.logger.info('__get_out_layers - Start')
-
-        try:
-
-            self.logger.info('__get_out_layers - Retrieving layers names')
-
-            # Retrieve layer's names
-            layer_names = self.neural_network.getLayerNames()
-
-        except Exception as e:
-
-            self.logger.error('__get_out_layers - Unable to retrieve layers names')
-            self.logger.error(e)
-            sys.exit(1)
-
-        else:
-
-            self.logger.info('__get_out_layers - Successfully retrieved layers names')
-
-        finally:
-
-            self.logger.info('__get_out_layers - Computing the output layers names')
-
-            # Get output layers names since by the non-output connected ones
-            output_layers = [layer_names[i - 1] for i in self.neural_network.getUnconnectedOutLayers()]
-
-            self.logger.info('__get_out_layers - End')
-
-            return output_layers
