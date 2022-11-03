@@ -2,7 +2,7 @@
 import os
 import cv2
 
-from typing import Tuple
+from typing import Tuple, List
 
 # Set root path
 import numpy as np
@@ -72,3 +72,61 @@ def read_blob_from_local_image(image_path: str,
 
 def read_blob_from_rest_api_image():
     pass
+
+
+def retrieve_neural_network_output(neural_network: cv2.dnn.Net,
+                                   blob: np.ndarray,
+                                   output_layers: List) -> Tuple[List, List, List]:
+    """
+    Set the blob as the neural network input and feed forward through it to retrieve the 3 output nodes predictions
+
+    Args:
+        neural_network: cv2.dnn.Net instance of DarkNet Yolo v3
+        blob: numpy.ndarray Blob of the image
+        output_layers: List of output layer names
+
+    Returns:
+        outputs: Tuple of output layers predictions (3 Lists of predictions)
+    """
+
+    logger.info('retrieve_neural_network_output - Start')
+
+    logger.info('retrieve_neural_network_output - Setting neural network input')
+
+    try:
+
+        # Set Blob as the neural network input
+        neural_network.setInput(blob)
+
+    except Exception as e:
+
+        logger.error('retrieve_neural_network_output - Unable to set neural network input')
+        logger.error(e)
+        sys.exit(1)
+
+    else:
+
+        logger.info('retrieve_neural_network_output - Successfully set neural network input')
+
+    logger.info('retrieve_neural_network_output - Feed forwarding the input through the Neural Network')
+
+    try:
+
+        # Compute the model's output of only the three output layers
+        outputs = neural_network.forward(output_layers)
+
+    except Exception as e:
+
+        logger.error('retrieve_neural_network_output - Unable to feed forward the input through the Neural Network')
+        logger.error(e)
+        sys.exit(1)
+
+    else:
+
+        logger.info('retrieve_neural_network_output - Successfully retrieve neural network outputs')
+        
+    finally:
+        
+        logger.info('retrieve_neural_network_output - End')
+
+        return outputs
