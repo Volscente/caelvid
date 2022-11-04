@@ -19,3 +19,7 @@ def test_object_detector() -> ObjectDetector:
     """
 
     return ObjectDetector()
+
+
+@pytest.fixture
+def test_blob()
