@@ -13,7 +13,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 # Import Package Libraries
 from modules.logging_module.logging_module import get_logger
 from modules.utils.utils import read_configuration
-from modules.object_detection.object_detection_utils import read_blob_from_local_image
+from modules.object_detection.object_detection_utils import read_blob_from_local_image, retrieve_neural_network_output
 
 
 class ObjectDetector:
@@ -249,30 +249,9 @@ class ObjectDetector:
 
         self.logger.info('detect_local_single_object - Setting neural network input')
 
-        try:
+        # Retrieve the predictions for the image from the 3 output layers
+        outputs = retrieve_neural_network_output(self.neural_network,
+                                                 blob,
+                                                 self.output_layers)
 
-            # Set Blob as the neural network input
-            self.neural_network.setInput(blob)
 
-        except Exception as e:
-
-            self.logger.error('detect_local_single_object - Unable to set neural network input')
-            self.logger.error(e)
-            sys.exit(1)
-
-        else:
-
-            self.logger.info('detect_local_single_object - Successfully set neural network input')
-
-        self.logger.info('detect_local_single_object - Feed forwarding the input through the Neural Network')
-
-        try:
-
-            # Compute the model's output of only the three output layers
-            outputs = self.neural_network.forward(self.output_layers)
-
-        except Exception as e:
-
-            self.logger.error('detect_local_single_object - Unable to feed forward the input through the Neural Network')
-            self.logger.error(e)
-            sys.exit(1)
