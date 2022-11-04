@@ -103,3 +103,7 @@ def test__get_output_layers(test_object_detector,
     """
 
     assert test_output_layer in test_object_detector.output_layers
+
+
+def test_retrieve_neural_network_output():
+    pass
