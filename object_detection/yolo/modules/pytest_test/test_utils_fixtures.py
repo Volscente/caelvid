@@ -48,4 +48,8 @@ def test_blob(test_configuration) -> np.ndarray:
         Numpy.ndarray Blob
     """
 
-    pass
+    return read_blob_from_local_image(test_configuration['test_blob_image'],
+                                      test_configuration['blob_size'],
+                                      test_configuration['blob_scale_factor'],
+                                      test_configuration['blob_swap_rb'],
+                                      test_configuration['blob_crop'])
