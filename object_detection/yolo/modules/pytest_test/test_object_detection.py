@@ -71,8 +71,6 @@ def test_read_blob_from_local_image(image_path: str,
     Returns:
     """
 
-    print(type(test_configuration['blob_size']))
-
     # Apply the function
     blob = read_blob_from_local_image(image_path,
                                       test_configuration['blob_size'],

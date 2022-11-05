@@ -17,7 +17,7 @@ logger = get_logger(os.path.basename(__file__).split('.')[0])
 
 
 def read_blob_from_local_image(image_path: str,
-                               size: Tuple[int, int],
+                               size: List[int],
                                scale_factor: float,
                                swap_rb: bool,
                                crop: bool) -> np.ndarray:
@@ -26,7 +26,7 @@ def read_blob_from_local_image(image_path: str,
 
     Args:
         image_path: String image path
-        size: Tuple integer resize dimensions
+        size: List integer resize dimensions
         scale_factor: Float pixel scale factor
         swap_rb: Bool flag for swapping R channel with B channel
         crop: Bool flag to crop the image
@@ -48,7 +48,7 @@ def read_blob_from_local_image(image_path: str,
 
         # Create a 4-dimensional (images, channels, width, height) Blob from an image
         blob_image = cv2.dnn.blobFromImage(image=image,
-                                           size=size,
+                                           size=(size[0], size[1]),
                                            scalefactor=float(scale_factor),
                                            swapRB=swap_rb,
                                            crop=crop)
