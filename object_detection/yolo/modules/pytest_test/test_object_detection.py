@@ -1,6 +1,7 @@
 # Import Standard Modules
 import os
 import pytest
+import numpy as np
 
 from typing import Tuple
 
@@ -8,9 +9,9 @@ from typing import Tuple
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Libraries
-from modules.pytest_test.test_utils_fixtures import test_object_detector
+from modules.pytest_test.test_utils_fixtures import test_object_detector, test_blob, test_configuration
 from modules.object_detection.object_detection import ObjectDetector
-from modules.object_detection.object_detection_utils import read_blob_from_local_image
+from modules.object_detection.object_detection_utils import read_blob_from_local_image, retrieve_neural_network_output
 
 
 @pytest.mark.parametrize('input_class', [
@@ -53,35 +54,31 @@ def test__read_neural_network(test_object_detector: ObjectDetector,
     assert input_layer in test_object_detector.neural_network_layers
 
 
-@pytest.mark.parametrize('image_path, size, scale_factor, swap_rb, crop, expected_shape', [
-    ('./data/test_images/image_1.jpeg', (416, 416), 1/255.0, True, False, (1, 3, 416, 416))
+@pytest.mark.parametrize('image_path, expected_shape', [
+    ('./data/test_images/image_1.jpeg', (1, 3, 416, 416))
 ])
 def test_read_blob_from_local_image(image_path: str,
-                                    size: Tuple[int, int],
-                                    scale_factor: float,
-                                    swap_rb: bool,
-                                    crop: bool,
-                                    expected_shape: Tuple[int, int, int, int]):
+                                    expected_shape: Tuple[int, int, int, int],
+                                    test_configuration: dict):
     """
     Test the function modules.object_detection.object_detection_utils.read_blob_from_local_image
 
     Args:
         image_path: String image path
-        size: Tuple[int, int] resize dimensions
-        scale_factor: Float pixel scale factor
-        swap_rb: Bool flag for swapping R channel with B channel
-        crop: Bool flag to crop the image
         expected_shape: Tuple[int, int, int, int] expected resulting blob shape
+        test_configuration: Dictionary configuration object
 
     Returns:
     """
 
+    print(type(test_configuration['blob_size']))
+
     # Apply the function
     blob = read_blob_from_local_image(image_path,
-                                      size,
-                                      scale_factor,
-                                      swap_rb,
-                                      crop)
+                                      test_configuration['blob_size'],
+                                      test_configuration['blob_scale_factor'],
+                                      test_configuration['blob_swap_rb'],
+                                      test_configuration['blob_crop'])
 
     assert blob.shape == expected_shape
 
@@ -91,7 +88,7 @@ def test_read_blob_from_local_image(image_path: str,
     'yolo_94',
     'yolo_106'
 ])
-def test__get_output_layers(test_object_detector,
+def test__get_output_layers(test_object_detector: ObjectDetector,
                             test_output_layer: str):
     """
     Test the function modules.object_detection.object_detection.ObjectDetector.__get_output_layers
@@ -105,5 +102,23 @@ def test__get_output_layers(test_object_detector,
     assert test_output_layer in test_object_detector.output_layers
 
 
-def test_retrieve_neural_network_output():
-    pass
+def test_retrieve_neural_network_output(test_object_detector: ObjectDetector,
+                                        test_blob: np.ndarray):
+    """
+    Test the function Test the function modules.object_detection.object_detection_utils.retrieve_neural_network_output
+
+    Args:
+        test_object_detector: ObjectDetector instance
+        test_blob: Numpy.ndarray Blob of the image
+
+    Returns:
+    """
+
+    # Feed forward the test_blob into the test_object_detector.neural_network and retrieve outputs
+    outputs = retrieve_neural_network_output(test_object_detector.neural_network,
+                                             test_blob,
+                                             test_object_detector.output_layers)
+
+    print(len(outputs))
+
+

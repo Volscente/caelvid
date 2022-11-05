@@ -32,7 +32,7 @@ def read_configuration(file_name: str) -> dict:
         # Read configuration file
         with open('./configuration/' + file_name) as config_file:
 
-            configuration = yaml.safe_load(config_file)
+            configuration = yaml.safe_load(config_file.read())
 
     except FileNotFoundError as e:
 

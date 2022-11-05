@@ -49,7 +49,7 @@ def read_blob_from_local_image(image_path: str,
         # Create a 4-dimensional (images, channels, width, height) Blob from an image
         blob_image = cv2.dnn.blobFromImage(image=image,
                                            size=size,
-                                           scalefactor=scale_factor,
+                                           scalefactor=float(scale_factor),
                                            swapRB=swap_rb,
                                            crop=crop)
 

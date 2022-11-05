@@ -9,7 +9,7 @@ test_blob_image: './data/test_images/image_1.jpeg'
 nn_weights_url: 'https://pjreddie.com/media/files/yolov3.weights'
 
 # Blob from Image Parameters
-blob_size: (416, 416)
-blob_scale_factor: 1/255.
+blob_size: '!!python/tuple [416, 416]'
+blob_scale_factor: 0.00392
 blob_swap_rb: True
 blob_crop: False
