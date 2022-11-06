@@ -117,6 +117,4 @@ def test_retrieve_neural_network_output(test_object_detector: ObjectDetector,
                                              test_blob,
                                              test_object_detector.output_layers)
 
-    print(len(outputs))
-
-
+    assert len(outputs) == 3  # Fixed number of output layers
