@@ -134,7 +134,7 @@ def retrieve_neural_network_output(neural_network: cv2.dnn.Net,
 
 # TODO retrieve_all_detected_classes
 def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
-                                  detection_confidence_threshold: float) -> :
+                                  detection_confidence_threshold: float):
     """
     Retrieve all the detected class with a detection confidence grater than detection_confidence_threshold
 
