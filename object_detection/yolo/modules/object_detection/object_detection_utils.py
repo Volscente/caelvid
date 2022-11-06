@@ -133,25 +133,46 @@ def retrieve_neural_network_output(neural_network: cv2.dnn.Net,
 
 
 # TODO retrieve_all_detected_classes
-def retrieve_all_detected_classes():
+def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
+                                  detection_confidence_threshold: float) -> :
+    """
+    Retrieve all the detected class with a detection confidence grater than detection_confidence_threshold
+
+    Args:
+        outputs: Tuple[List, List, List] outputs of the Neural Network
+        detection_confidence_threshold: Float detection confidence threshold for discarding low confidence detections
+
+    Returns:
+        detected_classes: List[
+    """
+
     pass
 
 
 # TODO retrieve_max_confident_class_index
 def retrieve_max_confident_class_index(neural_network: cv2.dnn.Net,
                                        blob: np.ndarray,
-                                       output_layers: List[str]) -> int:
+                                       output_layers: List[str],
+                                       detection_confidence_threshold: float) -> int:
     """
+    Retrieve the class index with the max confident detection level in the Blob
 
     Args:
         neural_network: cv2.dnn.Net DarkNet OpenCV instance
         blob: Numpy.ndarray Blob of the image
         output_layers: List String
+        detection_confidence_threshold: Float detection confidence threshold for discarding low confidence detections
 
     Returns:
-
+        class_index: Integer class index
     """
-    # TODO Call retrieve_neural_network_output and retrieve all outputs
+
+    logger.info('retrieve_max_confident_class_index - Start')
+
+    # Retrieve neural network outputs for the forwarded input (blob)
+    outputs = retrieve_neural_network_output(neural_network,
+                                             blob,
+                                             output_layers)
 
     # TODO retrieve_all_detected_classes and have all the detected classes
 
