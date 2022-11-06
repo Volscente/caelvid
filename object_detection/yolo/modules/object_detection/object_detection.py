@@ -13,7 +13,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 # Import Package Libraries
 from modules.logging_module.logging_module import get_logger
 from modules.utils.utils import read_configuration
-from modules.object_detection.object_detection_utils import read_blob_from_local_image, retrieve_neural_network_output
+from modules.object_detection.object_detection_utils import read_blob_from_local_image, retrieve_max_confident_class_index
 
 
 class ObjectDetector:
@@ -67,7 +67,7 @@ class ObjectDetector:
         self.output_layers = self.__get_output_layers()
 
     def __read_classes(self,
-                       classes_file_path: str) -> List:
+                       classes_file_path: str) -> List[str]:
         """
         Read the 'yolov3_classes.txt' file and retrieve the list of available classes
 
@@ -179,7 +179,7 @@ class ObjectDetector:
 
         self.logger.info('__read_neural_network - End')
 
-    def __get_output_layers(self) -> List:
+    def __get_output_layers(self) -> List[str]:
         """
         Retrieve the list of output layers names
 
@@ -218,7 +218,7 @@ class ObjectDetector:
             return output_layers
 
     def detect_local_single_object(self,
-                                   image_path) -> str:
+                                   image_path: str) -> str:
         """
 
         Args:
@@ -247,11 +247,9 @@ class ObjectDetector:
 
         self.logger.info('detect_local_single_object - Blob from local image successfully created')
 
-        self.logger.info('detect_local_single_object - Setting neural network input')
+        self.logger.info('detect_local_single_object - Retrieving the class with the max confident detection level')
 
-        # Retrieve the predictions for the image from the 3 output layers
-        outputs = retrieve_neural_network_output(self.neural_network,
-                                                 blob,
-                                                 self.output_layers)
+        # TODO call retrieve_max_confident_class_index
+
 
 

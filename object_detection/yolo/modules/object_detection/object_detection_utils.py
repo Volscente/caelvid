@@ -76,7 +76,7 @@ def read_blob_from_rest_api_image():
 
 def retrieve_neural_network_output(neural_network: cv2.dnn.Net,
                                    blob: np.ndarray,
-                                   output_layers: List) -> Tuple[List, List, List]:
+                                   output_layers: List[str]) -> Tuple[List, List, List]:
     """
     Set the blob as the neural network input and feed forward through it to retrieve the 3 output nodes predictions
 
@@ -130,3 +130,31 @@ def retrieve_neural_network_output(neural_network: cv2.dnn.Net,
         logger.info('retrieve_neural_network_output - End')
 
         return outputs
+
+
+# TODO retrieve_all_detected_classes
+def retrieve_all_detected_classes():
+    pass
+
+
+# TODO retrieve_max_confident_class_index
+def retrieve_max_confident_class_index(neural_network: cv2.dnn.Net,
+                                       blob: np.ndarray,
+                                       output_layers: List[str]) -> int:
+    """
+
+    Args:
+        neural_network: cv2.dnn.Net DarkNet OpenCV instance
+        blob: Numpy.ndarray Blob of the image
+        output_layers: List String
+
+    Returns:
+
+    """
+    # TODO Call retrieve_neural_network_output and retrieve all outputs
+
+    # TODO retrieve_all_detected_classes and have all the detected classes
+
+    # TODO apply NMS
+
+    pass
