@@ -11,7 +11,8 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 # Import Package Libraries
 from modules.pytest_test.test_utils_fixtures import test_object_detector, test_blob, test_configuration
 from modules.object_detection.object_detection import ObjectDetector
-from modules.object_detection.object_detection_utils import read_blob_from_local_image, retrieve_neural_network_output
+from modules.object_detection.object_detection_utils import read_blob_from_local_image, \
+    retrieve_neural_network_output, retrieve_all_detected_classes
 
 
 @pytest.mark.parametrize('input_class', [
@@ -90,6 +91,7 @@ def test__get_output_layers(test_object_detector: ObjectDetector,
                             test_output_layer: str):
     """
     Test the function modules.object_detection.object_detection.ObjectDetector.__get_output_layers
+
     Args:
         test_object_detector: ObjectDetector instance
         test_output_layer: String output layer name
@@ -118,3 +120,33 @@ def test_retrieve_neural_network_output(test_object_detector: ObjectDetector,
                                              test_object_detector.output_layers)
 
     assert len(outputs) == 3  # Fixed number of output layers
+
+
+@pytest.mark.parametrize('expected_length', [
+    14
+])
+def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
+                                       test_blob: np.ndarray,
+                                       test_configuration: dict,
+                                       expected_length: int):
+    """
+    Test the function Test the function modules.object_detection.object_detection_utils.retrieve_all_detected_classes
+
+    Args:
+        test_object_detector: ObjectDetector instance
+        test_blob: Numpy.ndarray Blob of the image
+        test_configuration: Dictionary configuration object
+        expected_length: Integer expected number of detected classes
+
+    Returns:
+    """
+
+    # Compute neural network outputs
+    outputs = retrieve_neural_network_output(test_object_detector.neural_network,
+                                             test_blob,
+                                             test_object_detector.output_layers)
+
+    # Retrieve detected classes
+    detected_classes = retrieve_all_detected_classes(outputs, test_configuration['detection_confidence_threshold'])
+
+    assert len(detected_classes) == expected_length
