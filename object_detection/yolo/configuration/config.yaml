@@ -13,3 +13,6 @@ blob_size: [416, 416]
 blob_scale_factor: 0.00392
 blob_swap_rb: True
 blob_crop: False
+
+# Inference Parameters
+detection_confidence_threshold: 0.5
