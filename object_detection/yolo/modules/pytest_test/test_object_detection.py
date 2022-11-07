@@ -147,6 +147,6 @@ def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
                                              test_object_detector.output_layers)
 
     # Retrieve detected classes
-    detected_classes = retrieve_all_detected_classes(outputs, test_configuration['detection_confidence_threshold'])
+    detected_classes, _ = retrieve_all_detected_classes(outputs, test_configuration['detection_confidence_threshold'])
 
     assert len(detected_classes) == expected_length

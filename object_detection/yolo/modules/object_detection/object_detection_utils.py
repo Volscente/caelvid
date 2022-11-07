@@ -133,7 +133,7 @@ def retrieve_neural_network_output(neural_network: cv2.dnn.Net,
 
 
 def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
-                                  detection_confidence_threshold: float) -> List[int]:
+                                  detection_confidence_threshold: float) -> Tuple[List[int], List[float]]:
     """
     Retrieve all the detected class with a detection confidence grater than detection_confidence_threshold
 
@@ -143,12 +143,13 @@ def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
 
     Returns:
         detected_classes: List[int] detected class indices
+        detected_confidences: List[float] detected class confidence levels
     """
 
     logger.info('retrieve_all_detected_classes - Start')
 
-    # Initialise the list of detected classes
-    detected_classes = []
+    # Initialise the list of detected classes and confidence levels
+    detected_classes, detected_confidences = [], []
 
     logger.info('retrieve_all_detected_classes - Fetching outputs')
 
@@ -172,14 +173,15 @@ def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
             # Check if the confidence is greater than the threshold
             if detected_confidence > detection_confidence_threshold:
 
-                # Update detected_classes
+                # Update detected_classes and detected_confidences
                 detected_classes.append(detected_class)
+                detected_confidences.append(detected_confidence)
 
     logger.info('retrieve_all_detected_classes - Total number of detected boxes {}'.format(len(detected_classes)))
 
     logger.info('retrieve_all_detected_classes - End')
 
-    return detected_classes
+    return detected_classes, detected_confidences
 
 
 # TODO retrieve_max_confident_class_index
@@ -209,7 +211,19 @@ def retrieve_max_confident_class_index(neural_network: cv2.dnn.Net,
                                              blob,
                                              output_layers)
 
-    # TODO retrieve_all_detected_classes and have all the detected classes
+    try:
+
+        logger.info('retrieve_max_confident_class_index - Retrieving all detected classes')
+
+        # Retrieve all the detected class indices coming from all the three output layers
+        detected_classes, detected_confidences = retrieve_all_detected_classes(outputs,
+                                                                               detection_confidence_threshold)
+
+    except Exception as e:
+
+        logger.error('retrieve_max_confident_class_index - Unable to retrieve detected classes')
+        logger.error(e)
+        sys.exit(1)
 
     # TODO apply NMS
 
