@@ -146,7 +146,41 @@ def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
         detected_classes: List[
     """
 
-    pass
+    logger.info('retrieve_all_detected_classes - Start')
+
+    # Initialise the list of detected classes
+    detected_classes = []
+
+    logger.info('retrieve_all_detected_classes - Fetching outputs')
+
+    # Fetch all the three output layers outputs
+    for index, output in enumerate(outputs):
+
+        logger.info('retrieve_all_detected_classes - Fetch output layers {}'.format(index + 1))
+
+        # Fetch all the boxes detected from the output layers
+        for detection in output:
+
+            # Retrieve the score of the detection for each class (First 4 values are the box coordinates)
+            scores = detection[5:]
+
+            # Get the maximum score, which corresponds to the detected class
+            detected_class = np.argmax(scores)
+
+            # Retrieve the detected confidence level
+            detected_confidence = scores[detected_class]
+
+            # Check if the confidence is greater than the threshold
+            if detected_confidence > detection_confidence_threshold:
+
+                # Update detected_classes
+                detected_classes.append(detected_class)
+
+    logger.info('retrieve_all_detected_classes - Total number of detected boxes {}'.format(len(detected_classes)))
+
+    logger.info('retrieve_all_detected_classes - End')
+
+    return detected_classes
 
 
 # TODO retrieve_max_confident_class_index
@@ -168,6 +202,8 @@ def retrieve_max_confident_class_index(neural_network: cv2.dnn.Net,
     """
 
     logger.info('retrieve_max_confident_class_index - Start')
+
+    logger.info('retrieve_max_confident_class_index - Computing neural network outputs')
 
     # Retrieve neural network outputs for the forwarded input (blob)
     outputs = retrieve_neural_network_output(neural_network,
