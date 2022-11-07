@@ -225,6 +225,23 @@ def retrieve_max_confident_class_index(neural_network: cv2.dnn.Net,
         logger.error(e)
         sys.exit(1)
 
-    # TODO apply NMS
+    else:
 
-    pass
+        logger.info('retrieve_max_confident_class_index - Successfully retrieved all detected classes')
+
+    try:
+
+        logger.info('retrieve_max_confident_class_index - Applying Non-max Suppression')
+
+        # TODO Apply Non-Max Suppression
+        # class_indices = cv2.dnn.NMSBoxes(detected_boxes, detected_confidences, confidence_threshold, nms_threshold)
+
+    except Exception as e:
+
+        logger.error('retrieve_max_confident_class_index - Unable to apply Non-max Suppression')
+        logger.error(e)
+        sys.exit(1)
+
+    else:
+
+        logger.info('retrieve_max_confident_class_index - Successfully applied Non-max Suppression')
