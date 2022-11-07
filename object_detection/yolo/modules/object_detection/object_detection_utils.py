@@ -149,7 +149,7 @@ def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
     logger.info('retrieve_all_detected_classes - Start')
 
     # Initialise the list of detected classes and confidence levels
-    detected_classes, detected_confidences = [], []
+    detected_classes, detected_confidences, detected_boxes = [], [], []
 
     logger.info('retrieve_all_detected_classes - Fetching outputs')
 
@@ -172,6 +172,14 @@ def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
 
             # Check if the confidence is greater than the threshold
             if detected_confidence > detection_confidence_threshold:
+
+                # TODO Retrieve box coordinates
+                # center_x = int(detection[0] * image_width)
+                # center_y = int(detection[1] * image_height)
+                # w = int(detection[2] * image_width)
+                # h = int(detection[3] * image_height)
+                # x = center_x - w / 2
+                # y = center_y - h / 2
 
                 # Update detected_classes and detected_confidences
                 detected_classes.append(detected_class)
@@ -233,8 +241,8 @@ def retrieve_max_confident_class_index(neural_network: cv2.dnn.Net,
 
         logger.info('retrieve_max_confident_class_index - Applying Non-max Suppression')
 
-        # TODO Apply Non-Max Suppression
-        # class_indices = cv2.dnn.NMSBoxes(detected_boxes, detected_confidences, confidence_threshold, nms_threshold)
+        # Apply Non-Max Suppression
+        class_indices = cv2.dnn.NMSBoxes(detected_boxes, detected_confidences, confidence_threshold, nms_threshold)
 
     except Exception as e:
 
