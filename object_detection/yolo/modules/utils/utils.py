@@ -20,7 +20,7 @@ def read_configuration(file_name: str) -> dict:
         file_name: String configuration file name to read
 
     Returns:
-        Dict configuration
+        configuration: Dictionary configuration
     """
 
     logger.info('read_configuration - Start')
