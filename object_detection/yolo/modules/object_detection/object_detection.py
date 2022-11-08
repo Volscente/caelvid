@@ -230,6 +230,8 @@ class ObjectDetector:
 
         self.logger.info('detect_local_single_object - Start')
 
+        # TODO Retrieve image dimensions
+
         # Retrieve blobFromImage parameters
         size = self.config['blob_size']
         scale_factor = self.config['blob_scale_factor']
