@@ -56,7 +56,7 @@ def test__read_neural_network(test_object_detector: ObjectDetector,
 
 
 @pytest.mark.parametrize('image_path, expected_dimensions', [
-    ('./data/test_images/image_1.jpeg', (416, 416))
+    ('./data/test_images/image_1.jpeg', (768, 576))
 ])
 def test_retrieve_image_width_and_height(image_path: str,
                                          expected_dimensions: Tuple[int, int]):
