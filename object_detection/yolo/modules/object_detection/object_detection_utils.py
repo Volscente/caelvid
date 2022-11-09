@@ -16,6 +16,47 @@ from modules.logging_module.logging_module import get_logger
 logger = get_logger(os.path.basename(__file__).split('.')[0])
 
 
+def retrieve_image_width_and_height(image_path: str) -> Tuple[int, int]:
+    """
+    Read the image with OpenCV and retrieve Width and Height of the image
+
+    Args:
+        image_path: String image path
+
+    Returns:
+        image_width: Integer width of the image
+        image_height: Integer height of the image
+    """
+
+    logger.info('retrieve_image_width_and_height - Start')
+
+    try:
+
+        logger.info('retrieve_image_width_and_height - Reading the image')
+
+        image = cv2.imread(image_path)
+
+    except FileNotFoundError as e:
+
+        logger.error('retrieve_image_width_and_height - Unable to find the image {}'.format(image_path))
+        logger.error(e)
+        raise FileNotFoundError
+
+    else:
+
+        logger.info('retrieve_image_width_and_height - Image successfully read')
+
+    finally:
+
+        # Compute image's width and height
+        image_width = image.shape[1]
+        image_height = image.shape[0]
+
+        logger.info('retrieve_image_width_and_height - End')
+
+        return image_width, image_height
+
+
 def read_blob_from_local_image(image_path: str,
                                size: List[int],
                                scale_factor: float,
