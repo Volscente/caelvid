@@ -52,7 +52,7 @@ def test__read_neural_network(test_object_detector: ObjectDetector,
     Returns:
     """
 
-    assert input_layer in test_object_detector.neural_network_layers
+    assert input_layer in test_object_detector.neural_network.getLayerNames()
 
 
 @pytest.mark.parametrize('image_path, expected_dimensions', [
