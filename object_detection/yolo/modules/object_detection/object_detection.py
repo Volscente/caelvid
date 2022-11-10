@@ -13,7 +13,8 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 # Import Package Libraries
 from modules.logging_module.logging_module import get_logger
 from modules.utils.utils import read_configuration
-from modules.object_detection.object_detection_utils import read_blob_from_local_image, retrieve_max_confident_class_index
+from modules.object_detection.object_detection_utils import retrieve_image_width_and_height, read_blob_from_local_image, \
+    retrieve_max_confident_class_index
 
 
 class ObjectDetector:
@@ -62,6 +63,8 @@ class ObjectDetector:
         self.__read_neural_network(self.config['nn_weights_url'],
                                    self.config['model_weights_file_path'],
                                    self.config['model_structure_file_path'])
+
+        # Retrieve
 
         # Retrieve neural network output layers
         self.output_layers = self.__get_output_layers()
@@ -230,7 +233,10 @@ class ObjectDetector:
 
         self.logger.info('detect_local_single_object - Start')
 
-        # TODO Retrieve image dimensions
+        self.logger.info('detect_local_single_object - Retrieving image dimensions')
+
+        # Retrieve image dimensions
+        image_width, image_height = retrieve_image_width_and_height(image_path)
 
         # Retrieve blobFromImage parameters
         size = self.config['blob_size']
