@@ -241,7 +241,6 @@ def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
     return detected_classes, detected_confidences, detected_boxes
 
 
-# TODO retrieve_max_confident_class_index
 def retrieve_max_confident_class_index(image_width: int,
                                        image_height: int,
                                        neural_network: cv2.dnn.Net,
