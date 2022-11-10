@@ -308,3 +308,9 @@ def retrieve_max_confident_class_index(image_width: int,
     else:
 
         logger.info('retrieve_max_confident_class_index - Successfully applied Non-max Suppression')
+
+    finally:
+
+        logger.info('retrieve_max_confident_class_index - End')
+
+        return class_indices[0]

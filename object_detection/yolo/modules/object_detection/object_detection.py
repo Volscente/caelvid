@@ -64,8 +64,6 @@ class ObjectDetector:
                                    self.config['model_weights_file_path'],
                                    self.config['model_structure_file_path'])
 
-        # Retrieve
-
         # Retrieve neural network output layers
         self.output_layers = self.__get_output_layers()
 
