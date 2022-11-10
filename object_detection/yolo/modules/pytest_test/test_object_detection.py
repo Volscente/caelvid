@@ -181,9 +181,9 @@ def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
 
 
 @pytest.mark.parametrize('input_image_path, expected_class_index', [
-    ('./data/test_images/image_1.jpeg', 1),
-    ('./data/test_images/image_2.png', 1),
-    ('./data/test_images/image_3.png', 1),
+    ('./data/test_images/image_1.jpeg', 16),
+    ('./data/test_images/image_2.png', 19),
+    ('./data/test_images/image_3.png', 47),
 ])
 def test_retrieve_max_confident_class_index(input_image_path: str,
                                             test_configuration: dict,
@@ -221,5 +221,5 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
                                                      test_configuration['detection_confidence_threshold'],
                                                      test_configuration['non_max_suppression_threshold'])
 
-    print(class_index)
-    print(test_object_detector.classes[class_index])
+    assert class_index == expected_class_index
+    
