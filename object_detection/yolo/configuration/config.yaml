@@ -16,3 +16,4 @@ blob_crop: False
 
 # Inference Parameters
 detection_confidence_threshold: 0.5
+non_max_suppression_threshold: 0.4
