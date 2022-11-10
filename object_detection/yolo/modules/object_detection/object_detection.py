@@ -221,12 +221,13 @@ class ObjectDetector:
     def detect_local_single_object(self,
                                    image_path: str) -> str:
         """
+        Detect the class of the input image
 
         Args:
             image_path: String image path from local File System
 
         Returns:
-
+            detected_class: String detected class name
         """
 
         self.logger.info('detect_local_single_object - Start')
@@ -255,7 +256,7 @@ class ObjectDetector:
 
         self.logger.info('detect_local_single_object - Retrieving the class with the max confident detection level')
 
-        # TODO call retrieve_max_confident_class_index
+        # Retrieve class index with mac confidence level
         class_index = retrieve_max_confident_class_index(image_width,
                                                          image_height,
                                                          self.neural_network,
@@ -264,7 +265,12 @@ class ObjectDetector:
                                                          self.config['detection_confidence_threshold'],
                                                          self.config['non_max_suppression_threshold'])
 
-        # TODO Return class name
+        self.logger.info('detect_local_single_object - Successfully retrieved the class with the max confident detection level')
 
+        # Retrieve class
+        detected_class = self.classes[class_index]
 
+        self.logger.info('detect_local_single_object - End')
 
+        return detected_class
+        
