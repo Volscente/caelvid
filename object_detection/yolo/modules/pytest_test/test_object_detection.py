@@ -222,4 +222,6 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
                                                      test_configuration['non_max_suppression_threshold'])
 
     assert class_index == expected_class_index
-    
+
+
+# TODO test_detect_local_single_object

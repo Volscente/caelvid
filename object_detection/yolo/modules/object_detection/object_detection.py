@@ -256,6 +256,15 @@ class ObjectDetector:
         self.logger.info('detect_local_single_object - Retrieving the class with the max confident detection level')
 
         # TODO call retrieve_max_confident_class_index
+        class_index = retrieve_max_confident_class_index(image_width,
+                                                         image_height,
+                                                         self.neural_network,
+                                                         blob,
+                                                         self.output_layers,
+                                                         self.config['detection_confidence_threshold'],
+                                                         self.config['non_max_suppression_threshold'])
+
+        # TODO Return class name
 
 
 
