@@ -143,12 +143,14 @@ def test_retrieve_neural_network_output(test_object_detector: ObjectDetector,
     assert len(outputs) == 3  # Fixed number of output layers
 
 
-@pytest.mark.parametrize('expected_length', [
-    14
+@pytest.mark.parametrize('input_image_width, input_image_height, expected_length', [
+    (768, 576, 14)
 ])
 def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
                                        test_blob: np.ndarray,
                                        test_configuration: dict,
+                                       input_image_width: int,
+                                       input_image_height: int,
                                        expected_length: int):
     """
     Test the function Test the function modules.object_detection.object_detection_utils.retrieve_all_detected_classes
@@ -157,6 +159,8 @@ def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
         test_object_detector: ObjectDetector instance
         test_blob: Numpy.ndarray Blob of the image
         test_configuration: Dictionary configuration object
+        input_image_width: Integer image width
+        input_image_height: Integer image heigth
         expected_length: Integer expected number of detected classes
 
     Returns:
@@ -168,6 +172,9 @@ def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
                                              test_object_detector.output_layers)
 
     # Retrieve detected classes
-    detected_classes, _ = retrieve_all_detected_classes(outputs, test_configuration['detection_confidence_threshold'])
+    detected_classes, _, _ = retrieve_all_detected_classes(outputs,
+                                                        input_image_width,
+                                                        input_image_height,
+                                                        test_configuration['detection_confidence_threshold'])
 
     assert len(detected_classes) == expected_length
