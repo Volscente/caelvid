@@ -174,17 +174,24 @@ def retrieve_neural_network_output(neural_network: cv2.dnn.Net,
 
 
 def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
-                                  detection_confidence_threshold: float) -> Tuple[List[int], List[float]]:
+                                  image_width: int,
+                                  image_height: int,
+                                  detection_confidence_threshold: float) -> Tuple[List[int],
+                                                                                  List[float],
+                                                                                  List[List[int]]]:
     """
     Retrieve all the detected class with a detection confidence grater than detection_confidence_threshold
 
     Args:
         outputs: Tuple[List, List, List] outputs of the Neural Network
+        image_width: Integer image width
+        image_height: Integer image height
         detection_confidence_threshold: Float detection confidence threshold for discarding low confidence detections
 
     Returns:
         detected_classes: List[int] detected class indices
         detected_confidences: List[float] detected class confidence levels
+        detected_boxes: List[List[int, int, int, int]] detected boxes
     """
 
     logger.info('retrieve_all_detected_classes - Start')
@@ -214,27 +221,30 @@ def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
             # Check if the confidence is greater than the threshold
             if detected_confidence > detection_confidence_threshold:
 
-                # TODO Retrieve box coordinates
-                # center_x = int(detection[0] * image_width)
-                # center_y = int(detection[1] * image_height)
-                # w = int(detection[2] * image_width)
-                # h = int(detection[3] * image_height)
-                # x = center_x - w / 2
-                # y = center_y - h / 2
+                # Retrieve box coordinates
+                center_x = int(detection[0] * image_width)
+                center_y = int(detection[1] * image_height)
+                w = int(detection[2] * image_width)
+                h = int(detection[3] * image_height)
+                x = center_x - w / 2
+                y = center_y - h / 2
 
-                # Update detected_classes and detected_confidences
+                # Update detected_classes. detected_confidences and detected_boxes
                 detected_classes.append(detected_class)
                 detected_confidences.append(detected_confidence)
+                detected_boxes.append([x, y, w, h])
 
     logger.info('retrieve_all_detected_classes - Total number of detected boxes {}'.format(len(detected_classes)))
 
     logger.info('retrieve_all_detected_classes - End')
 
-    return detected_classes, detected_confidences
+    return detected_classes, detected_confidences, detected_boxes
 
 
 # TODO retrieve_max_confident_class_index
-def retrieve_max_confident_class_index(neural_network: cv2.dnn.Net,
+def retrieve_max_confident_class_index(image_width: int,
+                                       image_height: int,
+                                       neural_network: cv2.dnn.Net,
                                        blob: np.ndarray,
                                        output_layers: List[str],
                                        detection_confidence_threshold: float) -> int:
@@ -242,6 +252,8 @@ def retrieve_max_confident_class_index(neural_network: cv2.dnn.Net,
     Retrieve the class index with the max confident detection level in the Blob
 
     Args:
+        image_width: Integer image width
+        image_height: Integer image height
         neural_network: cv2.dnn.Net DarkNet OpenCV instance
         blob: Numpy.ndarray Blob of the image
         output_layers: List String
@@ -265,8 +277,10 @@ def retrieve_max_confident_class_index(neural_network: cv2.dnn.Net,
         logger.info('retrieve_max_confident_class_index - Retrieving all detected classes')
 
         # Retrieve all the detected class indices coming from all the three output layers
-        detected_classes, detected_confidences = retrieve_all_detected_classes(outputs,
-                                                                               detection_confidence_threshold)
+        detected_classes, detected_confidences, detected_boxes = retrieve_all_detected_classes(outputs,
+                                                                                               image_width,
+                                                                                               image_height,
+                                                                                               detection_confidence_threshold)
 
     except Exception as e:
 
