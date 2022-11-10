@@ -318,4 +318,4 @@ def retrieve_max_confident_class_index(image_width: int,
 
         logger.info('retrieve_max_confident_class_index - End')
 
-        return class_indices[0]
+        return detected_classes[class_indices[0]]
