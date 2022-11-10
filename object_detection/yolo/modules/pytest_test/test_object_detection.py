@@ -12,7 +12,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 from modules.pytest_test.test_utils_fixtures import test_object_detector, test_blob, test_configuration
 from modules.object_detection.object_detection import ObjectDetector
 from modules.object_detection.object_detection_utils import retrieve_image_width_and_height, read_blob_from_local_image, \
-    retrieve_neural_network_output, retrieve_all_detected_classes
+    retrieve_neural_network_output, retrieve_all_detected_classes, retrieve_max_confident_class_index
 
 
 @pytest.mark.parametrize('input_class', [
@@ -178,3 +178,48 @@ def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
                                                         test_configuration['detection_confidence_threshold'])
 
     assert len(detected_classes) == expected_length
+
+
+@pytest.mark.parametrize('input_image_path, expected_class_index', [
+    ('./data/test_images/image_1.jpeg', 1),
+    ('./data/test_images/image_2.png', 1),
+    ('./data/test_images/image_3.png', 1),
+])
+def test_retrieve_max_confident_class_index(input_image_path: str,
+                                            test_configuration: dict,
+                                            test_object_detector: ObjectDetector,
+                                            expected_class_index: int):
+
+    """
+    Test the function Test the function modules.object_detection.object_detection_utils.retrieve_max_confident_class_index
+
+    Args:
+        input_image_path: String image path
+        test_configuration: Dictionary configuration object
+        test_object_detector: ObjectDetector instance
+        expected_class_index: Integer max confident class index
+
+    Returns:
+    """
+
+    # Retrieve image dimensions
+    image_width, image_height = retrieve_image_width_and_height(input_image_path)
+
+    # Compute blob from image
+    blob = read_blob_from_local_image(input_image_path,
+                                      test_configuration['blob_size'],
+                                      test_configuration['blob_scale_factor'],
+                                      test_configuration['blob_swap_rb'],
+                                      test_configuration['blob_crop'])
+
+    # Retrieve the max confident class index
+    class_index = retrieve_max_confident_class_index(image_width,
+                                                     image_height,
+                                                     test_object_detector.neural_network,
+                                                     blob,
+                                                     test_object_detector.output_layers,
+                                                     test_configuration['detection_confidence_threshold'],
+                                                     test_configuration['non_max_suppression_threshold'])
+
+    print(class_index)
+    print(test_object_detector.classes[class_index])
