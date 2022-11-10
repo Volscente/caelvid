@@ -247,7 +247,8 @@ def retrieve_max_confident_class_index(image_width: int,
                                        neural_network: cv2.dnn.Net,
                                        blob: np.ndarray,
                                        output_layers: List[str],
-                                       detection_confidence_threshold: float) -> int:
+                                       detection_confidence_threshold: float,
+                                       non_max_suppression_threshold: float) -> int:
     """
     Retrieve the class index with the max confident detection level in the Blob
 
@@ -258,6 +259,7 @@ def retrieve_max_confident_class_index(image_width: int,
         blob: Numpy.ndarray Blob of the image
         output_layers: List String
         detection_confidence_threshold: Float detection confidence threshold for discarding low confidence detections
+        non_max_suppression_threshold: Float threshold for discarding boxes during the Non-max Suppression step
 
     Returns:
         class_index: Integer class index
@@ -297,7 +299,10 @@ def retrieve_max_confident_class_index(image_width: int,
         logger.info('retrieve_max_confident_class_index - Applying Non-max Suppression')
 
         # Apply Non-Max Suppression
-        class_indices = cv2.dnn.NMSBoxes(detected_boxes, detected_confidences, confidence_threshold, nms_threshold)
+        class_indices = cv2.dnn.NMSBoxes(detected_boxes,
+                                         detected_confidences,
+                                         detection_confidence_threshold,
+                                         non_max_suppression_threshold)
 
     except Exception as e:
 
