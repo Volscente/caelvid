@@ -233,17 +233,18 @@ def test_detect_local_single_object(input_image_path: str,
                                     test_object_detector: ObjectDetector,
                                     expected_class: str):
     """
+    Test the method 'detect_local_single_object' from the ObjectDetector class
 
     Args:
-        input_image_path:
-        test_object_detector:
-        expected_class:
+        input_image_path: String image path
+        test_object_detector: ObjectDetector instance object
+        expected_class: String expected detected class
 
     Returns:
-
     """
 
     # Detect the image's object class
     detected_class = test_object_detector.detect_local_single_object(input_image_path)
 
     assert detected_class == expected_class
+    
