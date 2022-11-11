@@ -247,4 +247,3 @@ def test_detect_local_single_object(input_image_path: str,
     detected_class = test_object_detector.detect_local_single_object(input_image_path)
 
     assert detected_class == expected_class
-    

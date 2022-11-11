@@ -8,6 +8,8 @@ from urllib.request import urlretrieve
 from urllib.error import URLError
 
 # Set root path
+import numpy as np
+
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Libraries
@@ -273,4 +275,21 @@ class ObjectDetector:
         self.logger.info('detect_local_single_object - End')
 
         return detected_class
+
+    # TODO
+    def detect_rest_api_single_object(self,
+                                      blob: np.ndarray) -> str:
+        """
+        Detect the class of the input blob image
+
+        Args:
+            blob: Numpy.ndarray 4-dimensional blob image
+
+        Returns:
+            detected_class: String detected class name
+        """
+
+        self.logger.info('detect_rest_api_single_object - Start')
+
+        
 
