@@ -224,4 +224,26 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
     assert class_index == expected_class_index
 
 
-# TODO test_detect_local_single_object
+@pytest.mark.parametrize('input_image_path, expected_class', [
+    ('./data/test_images/image_1.jpeg', 'dog'),
+    ('./data/test_images/image_2.png', 'cow'),
+    ('./data/test_images/image_3.png', 'apple'),
+])
+def test_detect_local_single_object(input_image_path: str,
+                                    test_object_detector: ObjectDetector,
+                                    expected_class: str):
+    """
+
+    Args:
+        input_image_path:
+        test_object_detector:
+        expected_class:
+
+    Returns:
+
+    """
+
+    # Detect the image's object class
+    detected_class = test_object_detector.detect_local_single_object(input_image_path)
+
+    assert detected_class == expected_class

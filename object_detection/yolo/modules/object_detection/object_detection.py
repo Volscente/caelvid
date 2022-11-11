@@ -273,4 +273,4 @@ class ObjectDetector:
         self.logger.info('detect_local_single_object - End')
 
         return detected_class
-        
+
