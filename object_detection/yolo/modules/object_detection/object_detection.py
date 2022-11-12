@@ -291,5 +291,8 @@ class ObjectDetector:
 
         self.logger.info('detect_rest_api_single_object - Start')
 
-        
+        # TODO Retrieve image dimensions
+        #image_width, image_height = retrieve_image_width_and_height(image_path)
+
+
 
