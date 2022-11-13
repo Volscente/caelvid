@@ -6,9 +6,9 @@ import pytest
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Libraries
-from modules.pytest_test.test_utils_fixtures import test_object_detector
-from modules.object_detection.object_detection import ObjectDetector
-from modules.utils.utils import read_configuration
+from packages.pytest_test.test_utils_fixtures import test_object_detector
+from packages.object_detection.object_detection import ObjectDetector
+from packages.utils.utils import read_configuration
 
 
 def test_environment_variable(test_object_detector: ObjectDetector):
@@ -34,7 +34,7 @@ def test_read_configuration(test_config_file: str,
                             test_config: str,
                             expected_value: str):
     """
-    Test the function modules.utils.utils.read_configuration
+    Test the function packages.utils.utils.read_configuration
 
     Args:
         test_config_file: String configuration file name
@@ -56,7 +56,7 @@ def test_read_configuration(test_config_file: str,
 def test_read_configuration_exception(test_config_file: str,
                                       expected_error: FileNotFoundError):
     """
-    Test the exceptions to the function modules.utils.utils.read_configuration
+    Test the exceptions to the function packages.utils.utils.read_configuration
 
     Args:
         test_config_file: String configuration file name

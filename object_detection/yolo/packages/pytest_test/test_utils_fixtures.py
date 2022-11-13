@@ -7,9 +7,9 @@ import numpy as np
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Libraries
-from modules.object_detection.object_detection import ObjectDetector
-from modules.object_detection.object_detection_utils import read_blob_from_local_image
-from modules.utils.utils import read_configuration
+from packages.object_detection.object_detection import ObjectDetector
+from packages.object_detection.object_detection_utils import read_blob_from_local_image
+from packages.utils.utils import read_configuration
 
 
 @pytest.fixture

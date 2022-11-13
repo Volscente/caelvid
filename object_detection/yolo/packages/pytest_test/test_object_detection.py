@@ -9,9 +9,9 @@ from typing import Tuple
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Libraries
-from modules.pytest_test.test_utils_fixtures import test_object_detector, test_blob, test_configuration
-from modules.object_detection.object_detection import ObjectDetector
-from modules.object_detection.object_detection_utils import retrieve_image_width_and_height, read_blob_from_local_image, \
+from packages.pytest_test.test_utils_fixtures import test_object_detector, test_blob, test_configuration
+from packages.object_detection.object_detection import ObjectDetector
+from packages.object_detection.object_detection_utils import retrieve_image_width_and_height, read_blob_from_local_image, \
     retrieve_neural_network_output, retrieve_all_detected_classes, retrieve_max_confident_class_index
 
 
@@ -23,7 +23,7 @@ from modules.object_detection.object_detection_utils import retrieve_image_width
 def test__read_classes(test_object_detector: ObjectDetector,
                        input_class: str):
     """
-    Test the function modules.object_detection.object_detection.ObjectDetector.__read_classes
+    Test the function packages.object_detection.object_detection.ObjectDetector.__read_classes
 
     Args:
         test_object_detector: ObjectDetector instance
@@ -43,7 +43,7 @@ def test__read_classes(test_object_detector: ObjectDetector,
 def test__read_neural_network(test_object_detector: ObjectDetector,
                               input_layer: str):
     """
-    Test the function modules.object_detection.object_detection.ObjectDetector.__read_neural_network
+    Test the function packages.object_detection.object_detection.ObjectDetector.__read_neural_network
 
     Args:
         test_object_detector: ObjectDetector instance
@@ -61,7 +61,7 @@ def test__read_neural_network(test_object_detector: ObjectDetector,
 def test_retrieve_image_width_and_height(image_path: str,
                                          expected_dimensions: Tuple[int, int]):
     """
-    Test the function modules.object_detection.object_detection_utils.retrieve_image_width_and_height
+    Test the function packages.object_detection.object_detection_utils.retrieve_image_width_and_height
 
     Args:
         image_path: String image path
@@ -83,7 +83,7 @@ def test_read_blob_from_local_image(image_path: str,
                                     expected_shape: Tuple[int, int, int, int],
                                     test_configuration: dict):
     """
-    Test the function modules.object_detection.object_detection_utils.read_blob_from_local_image
+    Test the function packages.object_detection.object_detection_utils.read_blob_from_local_image
 
     Args:
         image_path: String image path
@@ -111,7 +111,7 @@ def test_read_blob_from_local_image(image_path: str,
 def test__get_output_layers(test_object_detector: ObjectDetector,
                             test_output_layer: str):
     """
-    Test the function modules.object_detection.object_detection.ObjectDetector.__get_output_layers
+    Test the function packages.object_detection.object_detection.ObjectDetector.__get_output_layers
 
     Args:
         test_object_detector: ObjectDetector instance
@@ -126,7 +126,7 @@ def test__get_output_layers(test_object_detector: ObjectDetector,
 def test_retrieve_neural_network_output(test_object_detector: ObjectDetector,
                                         test_blob: np.ndarray):
     """
-    Test the function Test the function modules.object_detection.object_detection_utils.retrieve_neural_network_output
+    Test the function Test the function packages.object_detection.object_detection_utils.retrieve_neural_network_output
 
     Args:
         test_object_detector: ObjectDetector instance
@@ -153,7 +153,7 @@ def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
                                        input_image_height: int,
                                        expected_length: int):
     """
-    Test the function Test the function modules.object_detection.object_detection_utils.retrieve_all_detected_classes
+    Test the function Test the function packages.object_detection.object_detection_utils.retrieve_all_detected_classes
 
     Args:
         test_object_detector: ObjectDetector instance
@@ -191,7 +191,7 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
                                             expected_class_index: int):
 
     """
-    Test the function Test the function modules.object_detection.object_detection_utils.retrieve_max_confident_class_index
+    Test the function Test the function packages.object_detection.object_detection_utils.retrieve_max_confident_class_index
 
     Args:
         input_image_path: String image path

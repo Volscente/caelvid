@@ -6,7 +6,7 @@ import yaml
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Modules
-from modules.logging_module.logging_module import get_logger
+from packages.logging_module.logging_module import get_logger
 
 # Setup logger
 logger = get_logger(os.path.basename(__file__).split('.')[0])

@@ -13,9 +13,9 @@ import numpy as np
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Libraries
-from modules.logging_module.logging_module import get_logger
-from modules.utils.utils import read_configuration
-from modules.object_detection.object_detection_utils import retrieve_image_width_and_height, read_blob_from_local_image, \
+from packages.logging_module.logging_module import get_logger
+from packages.utils.utils import read_configuration
+from packages.object_detection.object_detection_utils import retrieve_image_width_and_height, read_blob_from_local_image, \
     retrieve_max_confident_class_index
 
 
