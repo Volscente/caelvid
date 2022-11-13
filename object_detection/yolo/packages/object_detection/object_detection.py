@@ -15,7 +15,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 # Import Package Libraries
 from packages.logging_module.logging_module import get_logger
 from packages.utils.utils import read_configuration
-from packages.object_detection.object_detection_utils import retrieve_image_width_and_height, read_blob_from_local_image, \
+from packages.object_detection.object_detection_utils import retrieve_local_image_width_and_height, read_blob_from_local_image, \
     retrieve_max_confident_class_index
 
 
@@ -237,7 +237,7 @@ class ObjectDetector:
         self.logger.info('detect_local_single_object - Retrieving image dimensions')
 
         # Retrieve image dimensions
-        image_width, image_height = retrieve_image_width_and_height(image_path)
+        image_width, image_height = retrieve_local_image_width_and_height(image_path)
 
         # Retrieve blobFromImage parameters
         size = self.config['blob_size']
@@ -292,7 +292,7 @@ class ObjectDetector:
         self.logger.info('detect_rest_api_single_object - Start')
 
         # TODO Retrieve image dimensions
-        #image_width, image_height = retrieve_image_width_and_height(image_path)
+        #image_width, image_height = retrieve_local_image_width_and_height(image_path)
 
 
 

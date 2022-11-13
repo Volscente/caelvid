@@ -11,7 +11,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 # Import Package Libraries
 from packages.pytest_test.test_utils_fixtures import test_object_detector, test_blob, test_configuration
 from packages.object_detection.object_detection import ObjectDetector
-from packages.object_detection.object_detection_utils import retrieve_image_width_and_height, read_blob_from_local_image, \
+from packages.object_detection.object_detection_utils import retrieve_local_image_width_and_height, read_blob_from_local_image, \
     retrieve_neural_network_output, retrieve_all_detected_classes, retrieve_max_confident_class_index
 
 
@@ -58,10 +58,10 @@ def test__read_neural_network(test_object_detector: ObjectDetector,
 @pytest.mark.parametrize('image_path, expected_dimensions', [
     ('./data/test_images/image_1.jpeg', (768, 576))
 ])
-def test_retrieve_image_width_and_height(image_path: str,
+def test_retrieve_local_image_width_and_height(image_path: str,
                                          expected_dimensions: Tuple[int, int]):
     """
-    Test the function packages.object_detection.object_detection_utils.retrieve_image_width_and_height
+    Test the function packages.object_detection.object_detection_utils.retrieve_local_image_width_and_height
 
     Args:
         image_path: String image path
@@ -71,7 +71,7 @@ def test_retrieve_image_width_and_height(image_path: str,
     """
 
     # Retrieve image width and height
-    width, height = retrieve_image_width_and_height(image_path)
+    width, height = retrieve_local_image_width_and_height(image_path)
 
     assert width == expected_dimensions[0] and height == expected_dimensions[1]
 
@@ -203,7 +203,7 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
     """
 
     # Retrieve image dimensions
-    image_width, image_height = retrieve_image_width_and_height(input_image_path)
+    image_width, image_height = retrieve_local_image_width_and_height(input_image_path)
 
     # Compute blob from image
     blob = read_blob_from_local_image(input_image_path,

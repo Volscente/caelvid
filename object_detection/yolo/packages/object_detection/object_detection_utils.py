@@ -16,7 +16,7 @@ from packages.logging_module.logging_module import get_logger
 logger = get_logger(os.path.basename(__file__).split('.')[0])
 
 
-def retrieve_image_width_and_height(image_path: str) -> Tuple[int, int]:
+def retrieve_local_image_width_and_height(image_path: str) -> Tuple[int, int]:
     """
     Read the image with OpenCV and retrieve Width and Height of the image
 
@@ -28,23 +28,23 @@ def retrieve_image_width_and_height(image_path: str) -> Tuple[int, int]:
         image_height: Integer height of the image
     """
 
-    logger.info('retrieve_image_width_and_height - Start')
+    logger.info('retrieve_local_image_width_and_height - Start')
 
     try:
 
-        logger.info('retrieve_image_width_and_height - Reading the image')
+        logger.info('retrieve_local_image_width_and_height - Reading the image')
 
         image = cv2.imread(image_path)
 
     except FileNotFoundError as e:
 
-        logger.error('retrieve_image_width_and_height - Unable to find the image {}'.format(image_path))
+        logger.error('retrieve_local_image_width_and_height - Unable to find the image {}'.format(image_path))
         logger.error(e)
         raise FileNotFoundError
 
     else:
 
-        logger.info('retrieve_image_width_and_height - Image successfully read')
+        logger.info('retrieve_local_image_width_and_height - Image successfully read')
 
     finally:
 
@@ -52,7 +52,7 @@ def retrieve_image_width_and_height(image_path: str) -> Tuple[int, int]:
         image_width = image.shape[1]
         image_height = image.shape[0]
 
-        logger.info('retrieve_image_width_and_height - End')
+        logger.info('retrieve_local_image_width_and_height - End')
 
         return image_width, image_height
 
