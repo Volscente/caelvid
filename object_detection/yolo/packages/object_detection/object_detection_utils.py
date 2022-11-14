@@ -31,6 +31,8 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
 
     logger.info('read_image_from_source - Start')
 
+    # TODO check if the os.path.is in case the type(image_source) == str. Otherwise raise FileNotFound
+
     try:
 
         logger.info('read_image_from_source - Reading image from source')
@@ -51,12 +53,6 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
             logger.error('read_image_from_source - Unrecognised image source type')
             raise TypeError('Image source type muse be String or Numpy.ndarray')
 
-    except FileNotFoundError as e:
-
-        logger.error('read_image_from_source - Unable to find the image {}'.format(image_source))
-        logger.error(e)
-        raise FileNotFoundError
-
     except Exception as e:
 
         logger.error('read_image_from_source - Unable to read the image from the source')
@@ -70,6 +66,8 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
     finally:
 
         logger.info('read_image_from_source - End')
+
+        print(image.shape)
 
         return image
 

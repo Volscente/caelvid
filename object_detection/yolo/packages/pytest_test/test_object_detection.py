@@ -11,8 +11,8 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 # Import Package Libraries
 from packages.pytest_test.test_utils_fixtures import test_object_detector, test_blob, test_configuration
 from packages.object_detection.object_detection import ObjectDetector
-from packages.object_detection.object_detection_utils import retrieve_local_image_width_and_height, read_blob_from_local_image, \
-    retrieve_neural_network_output, retrieve_all_detected_classes, retrieve_max_confident_class_index
+from packages.object_detection.object_detection_utils import read_image_from_source, retrieve_local_image_width_and_height, \
+    read_blob_from_local_image, retrieve_neural_network_output, retrieve_all_detected_classes, retrieve_max_confident_class_index
 
 
 @pytest.mark.parametrize('input_class', [
@@ -55,8 +55,49 @@ def test__read_neural_network(test_object_detector: ObjectDetector,
     assert input_layer in test_object_detector.neural_network.getLayerNames()
 
 
+@pytest.mark.parametrize('test_output_layer', [
+    'yolo_82',
+    'yolo_94',
+    'yolo_106'
+])
+def test__get_output_layers(test_object_detector: ObjectDetector,
+                            test_output_layer: str):
+    """
+    Test the function packages.object_detection.object_detection.ObjectDetector.__get_output_layers
+
+    Args:
+        test_object_detector: ObjectDetector instance
+        test_output_layer: String output layer name
+
+    Returns:
+    """
+
+    assert test_output_layer in test_object_detector.output_layers
+
+
+@pytest.mark.parametrize('image_source, expected_shape', [
+    ('./data/test_images/image_1.jpeg', (768, 576)),
+    ('./data/test_images/image_2.jpeg', (1, 1))
+])
+def test_read_image_from_source(image_source, expected_shape):
+    """
+    Test the function packages.object_detection.object_detection_utils.read_image_from_source
+
+    Args:
+        image_source: String image path from local File System | Numpy.ndarray image representation
+        expected_shape: Tuple[int, int] expected read image shape
+
+    Returns:
+    """
+
+    # Read the image from the source
+    image = read_image_from_source(image_source)
+
+    print(image.shape)
+
+
 @pytest.mark.parametrize('image_path, expected_dimensions', [
-    ('./data/test_images/image_1.jpeg', (768, 576))
+    ('./data/test_images/image_1.jpeg', (576, 768, 3))
 ])
 def test_retrieve_local_image_width_and_height(image_path: str,
                                          expected_dimensions: Tuple[int, int]):
@@ -101,26 +142,6 @@ def test_read_blob_from_local_image(image_path: str,
                                       test_configuration['blob_crop'])
 
     assert blob.shape == expected_shape
-
-
-@pytest.mark.parametrize('test_output_layer', [
-    'yolo_82',
-    'yolo_94',
-    'yolo_106'
-])
-def test__get_output_layers(test_object_detector: ObjectDetector,
-                            test_output_layer: str):
-    """
-    Test the function packages.object_detection.object_detection.ObjectDetector.__get_output_layers
-
-    Args:
-        test_object_detector: ObjectDetector instance
-        test_output_layer: String output layer name
-
-    Returns:
-    """
-
-    assert test_output_layer in test_object_detector.output_layers
 
 
 def test_retrieve_neural_network_output(test_object_detector: ObjectDetector,
