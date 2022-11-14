@@ -229,11 +229,11 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
     ('./data/test_images/image_2.png', 'cow'),
     ('./data/test_images/image_3.png', 'apple'),
 ])
-def test_detect_local_single_object(input_image_path: str,
+def test_detect_single_object(input_image_path: str,
                                     test_object_detector: ObjectDetector,
                                     expected_class: str):
     """
-    Test the method 'detect_local_single_object' from the ObjectDetector class
+    Test the method 'detect_single_object' from the ObjectDetector class
 
     Args:
         input_image_path: String image path
@@ -244,6 +244,6 @@ def test_detect_local_single_object(input_image_path: str,
     """
 
     # Detect the image's object class
-    detected_class = test_object_detector.detect_local_single_object(input_image_path)
+    detected_class = test_object_detector.detect_single_object(input_image_path)
 
     assert detected_class == expected_class

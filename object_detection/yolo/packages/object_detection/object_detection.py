@@ -220,21 +220,21 @@ class ObjectDetector:
 
             return output_layers
 
-    def detect_local_single_object(self,
-                                   image_path: str) -> str:
+    def detect_single_object(self,
+                             image_source: str | np.ndarray) -> str:
         """
         Detect the class of the input image
 
         Args:
-            image_path: String image path from local File System
+            image_source: String image path from local File System or Numpy.ndarray image representation
 
         Returns:
             detected_class: String detected class name
         """
 
-        self.logger.info('detect_local_single_object - Start')
+        self.logger.info('detect_single_object - Start')
 
-        self.logger.info('detect_local_single_object - Retrieving image dimensions')
+        self.logger.info('detect_single_object - Reading the image')
 
         # Retrieve image dimensions
         image_width, image_height = retrieve_local_image_width_and_height(image_path)
@@ -245,7 +245,7 @@ class ObjectDetector:
         swap_rb = self.config['blob_swap_rb']
         crop = self.config['blob_crop']
 
-        self.logger.info('detect_local_single_object - Creating Blob from local image')
+        self.logger.info('detect_single_object - Creating Blob from local image')
 
         # Retrieve Blob image from local file
         blob = read_blob_from_local_image(image_path,
@@ -254,9 +254,9 @@ class ObjectDetector:
                                           swap_rb,
                                           crop)
 
-        self.logger.info('detect_local_single_object - Blob from local image successfully created')
+        self.logger.info('detect_single_object - Blob from local image successfully created')
 
-        self.logger.info('detect_local_single_object - Retrieving the class with the max confident detection level')
+        self.logger.info('detect_single_object - Retrieving the class with the max confident detection level')
 
         # Retrieve class index with mac confidence level
         class_index = retrieve_max_confident_class_index(image_width,
@@ -267,11 +267,11 @@ class ObjectDetector:
                                                          self.config['detection_confidence_threshold'],
                                                          self.config['non_max_suppression_threshold'])
 
-        self.logger.info('detect_local_single_object - Successfully retrieved the class with the max confident detection level')
+        self.logger.info('detect_single_object - Successfully retrieved the class with the max confident detection level')
 
         # Retrieve class
         detected_class = self.classes[class_index]
 
-        self.logger.info('detect_local_single_object - End')
+        self.logger.info('detect_single_object - End')
 
         return detected_class
