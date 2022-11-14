@@ -275,24 +275,3 @@ class ObjectDetector:
         self.logger.info('detect_local_single_object - End')
 
         return detected_class
-
-    # TODO
-    def detect_rest_api_single_object(self,
-                                      blob: np.ndarray) -> str:
-        """
-        Detect the class of the input blob image
-
-        Args:
-            blob: Numpy.ndarray 4-dimensional blob image
-
-        Returns:
-            detected_class: String detected class name
-        """
-
-        self.logger.info('detect_rest_api_single_object - Start')
-
-        # TODO Retrieve image dimensions
-        #image_width, image_height = retrieve_local_image_width_and_height(image_path)
-
-
-

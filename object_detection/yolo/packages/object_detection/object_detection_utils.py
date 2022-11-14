@@ -111,10 +111,6 @@ def read_blob_from_local_image(image_path: str,
         return blob_image
 
 
-def read_blob_from_rest_api_image():
-    pass
-
-
 def retrieve_neural_network_output(neural_network: cv2.dnn.Net,
                                    blob: np.ndarray,
                                    output_layers: List[str]) -> Tuple[List, List, List]:
