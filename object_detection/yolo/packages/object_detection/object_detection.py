@@ -15,8 +15,8 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 # Import Package Libraries
 from packages.logging_module.logging_module import get_logger
 from packages.utils.utils import read_configuration
-from packages.object_detection.object_detection_utils import retrieve_local_image_width_and_height, read_blob_from_local_image, \
-    retrieve_max_confident_class_index
+from packages.object_detection.object_detection_utils import read_image_from_source, retrieve_local_image_width_and_height, \
+    read_blob_from_local_image, retrieve_max_confident_class_index
 
 
 class ObjectDetector:
@@ -226,7 +226,7 @@ class ObjectDetector:
         Detect the class of the input image
 
         Args:
-            image_source: String image path from local File System or Numpy.ndarray image representation
+            image_source: String image path from local File System | Numpy.ndarray image representation
 
         Returns:
             detected_class: String detected class name
@@ -234,7 +234,10 @@ class ObjectDetector:
 
         self.logger.info('detect_single_object - Start')
 
-        self.logger.info('detect_single_object - Reading the image')
+        self.logger.info('detect_single_object - Reading the image from the source')
+
+        # Read the image from a local file path or from a Numpy.ndarray image representation
+        image = read_image_from_source(image_source)
 
         # Retrieve image dimensions
         image_width, image_height = retrieve_local_image_width_and_height(image_path)

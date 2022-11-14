@@ -1,5 +1,7 @@
 # Import Standard Libraries
 import os
+import sys
+
 import cv2
 
 from typing import Tuple, List
@@ -14,6 +16,62 @@ from packages.logging_module.logging_module import get_logger
 
 # Setup logger
 logger = get_logger(os.path.basename(__file__).split('.')[0])
+
+
+def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
+    """
+    Read the image with Open CV from the 'image_source'
+
+    Args:
+        image_source: String image path from local File System | Numpy.ndarray image representation
+
+    Returns:
+        image: Numpy.ndarray OpenCV read image
+    """
+
+    logger.info('read_image_from_source - Start')
+
+    try:
+
+        logger.info('read_image_from_source - Reading image from source')
+
+        # Switch between reading from local file or from Numpy.ndarray image representation
+        if type(image_source) == str:
+
+            # Read image from local file
+            image = cv2.imread(image_source)
+
+        elif type(image_source) == np.ndarray:
+
+            # Read image from Numpy.ndarray image representation
+            image = cv2.imdecode(image_source, cv2.IMREAD_UNCHANGED)
+
+        else:
+
+            logger.error('read_image_from_source - Unrecognised image source type')
+            raise TypeError('Image source type muse be String or Numpy.ndarray')
+
+    except FileNotFoundError as e:
+
+        logger.error('read_image_from_source - Unable to find the image {}'.format(image_source))
+        logger.error(e)
+        raise FileNotFoundError
+
+    except Exception as e:
+
+        logger.error('read_image_from_source - Unable to read the image from the source')
+        logger.error(e)
+        sys.exit(1)
+
+    else:
+
+        logger.info('read_image_from_source - Successfully read image from the source')
+
+    finally:
+
+        logger.info('read_image_from_source - End')
+
+        return image
 
 
 def retrieve_local_image_width_and_height(image_path: str) -> Tuple[int, int]:
