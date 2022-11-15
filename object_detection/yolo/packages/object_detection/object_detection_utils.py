@@ -31,45 +31,36 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
 
     logger.info('read_image_from_source - Start')
 
-    # TODO check if the os.path.is in case the type(image_source) == str. Otherwise raise FileNotFound
+    logger.info('read_image_from_source - Reading image from source')
 
-    try:
+    # Switch between reading from local file or from Numpy.ndarray image representation
+    if type(image_source) == str:
 
-        logger.info('read_image_from_source - Reading image from source')
-
-        # Switch between reading from local file or from Numpy.ndarray image representation
-        if type(image_source) == str:
+        # Check if the image file is in the FS
+        if os.path.isfile(image_source):
 
             # Read image from local file
             image = cv2.imread(image_source)
 
-        elif type(image_source) == np.ndarray:
-
-            # Read image from Numpy.ndarray image representation
-            image = cv2.imdecode(image_source, cv2.IMREAD_UNCHANGED)
-
         else:
 
-            logger.error('read_image_from_source - Unrecognised image source type')
-            raise TypeError('Image source type muse be String or Numpy.ndarray')
+            raise FileNotFoundError('Unable to find the image at {}'.format(image_source))
 
-    except Exception as e:
+    elif type(image_source) == np.ndarray:
 
-        logger.error('read_image_from_source - Unable to read the image from the source')
-        logger.error(e)
-        sys.exit(1)
+        # Read image from Numpy.ndarray image representation
+        image = cv2.imdecode(image_source, cv2.IMREAD_UNCHANGED)
 
     else:
 
-        logger.info('read_image_from_source - Successfully read image from the source')
+        logger.error('read_image_from_source - Unrecognised image source type')
+        raise TypeError('Image source type muse be String or Numpy.ndarray')
 
-    finally:
+    logger.info('read_image_from_source - Successfully read image from the source')
 
-        logger.info('read_image_from_source - End')
+    logger.info('read_image_from_source - End')
 
-        print(image.shape)
-
-        return image
+    return image
 
 
 def retrieve_local_image_width_and_height(image_path: str) -> Tuple[int, int]:
