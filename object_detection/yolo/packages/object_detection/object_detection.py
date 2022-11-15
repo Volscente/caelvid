@@ -92,21 +92,17 @@ class ObjectDetector:
 
                 classes = [line.strip() for line in classes_file.readlines()]
 
-        except FileNotFoundError as e:
+        except FileNotFoundError:
 
-            self.logger.error('__read_classes - File {} not found'.format(classes_file_path))
-            self.logger.error(e)
-            raise FileNotFoundError
+            raise FileNotFoundError('__read_classes - File {} not found'.format(classes_file_path))
 
         else:
 
             self.logger.info('__read_classes - Classes file {} read successfully'.format(classes_file_path))
 
-        finally:
+        self.classes = classes
 
-            self.classes = classes
-
-            self.logger.info('__read_classes - End')
+        self.logger.info('__read_classes - End')
 
     def __read_neural_network(self,
                               nn_weights_url: str,
@@ -146,15 +142,11 @@ class ObjectDetector:
 
         except FileNotFoundError as e:
 
-            self.logger.error('__read_neural_network - File {} not found'.format(model_weights_file_path))
-            self.logger.error(e)
-            raise FileNotFoundError
+            raise FileNotFoundError('__read_neural_network - File {} not found'.format(model_weights_file_path))
 
-        except URLError as e:
+        except URLError:
 
-            self.logger.error('__read_neural_network - Unable to reach the URL'.format(nn_weights_url))
-            self.logger.error(e)
-            raise URLError
+            raise URLError('__read_neural_network - Unable to reach the URL'.format(nn_weights_url))
 
         else:
 
@@ -173,8 +165,7 @@ class ObjectDetector:
 
         else:
 
-            self.logger.error('__read_neural_network - Missing required files: yolov3.weights and yolov3.cfg')
-            raise FileNotFoundError
+            raise FileNotFoundError('__read_neural_network - Missing required files: yolov3.weights and yolov3.cfg')
 
         self.logger.info('__read_neural_network - Neural Network file read successfully')
 
@@ -199,26 +190,22 @@ class ObjectDetector:
             # Retrieve layer's names
             layer_names = self.neural_network.getLayerNames()
 
-        except Exception as e:
+        except Exception:
 
-            self.logger.error('__get_out_layers - Unable to retrieve layers names')
-            self.logger.error(e)
-            sys.exit(1)
+            raise Exception('__get_out_layers - Unable to retrieve layers names')
 
         else:
 
             self.logger.info('__get_out_layers - Successfully retrieved layers names')
 
-        finally:
+        self.logger.info('__get_out_layers - Computing the output layers names')
 
-            self.logger.info('__get_out_layers - Computing the output layers names')
+        # Get output layers names since by the non-output connected ones
+        output_layers = [layer_names[i - 1] for i in self.neural_network.getUnconnectedOutLayers()]
 
-            # Get output layers names since by the non-output connected ones
-            output_layers = [layer_names[i - 1] for i in self.neural_network.getUnconnectedOutLayers()]
+        self.logger.info('__get_out_layers - End')
 
-            self.logger.info('__get_out_layers - End')
-
-            return output_layers
+        return output_layers
 
     def detect_single_object(self,
                              image_source: str | np.ndarray) -> str:
