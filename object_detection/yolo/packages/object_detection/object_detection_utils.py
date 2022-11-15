@@ -44,7 +44,7 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
 
         else:
 
-            raise FileNotFoundError('Unable to find the image at {}'.format(image_source))
+            raise FileNotFoundError('read_image_from_source - Unable to find the image at {}'.format(image_source))
 
     elif type(image_source) == np.ndarray:
 
@@ -53,8 +53,7 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
 
     else:
 
-        logger.error('read_image_from_source - Unrecognised image source type')
-        raise TypeError('Image source type muse be String or Numpy.ndarray')
+        raise TypeError('read_image_from_source - Image source type muse be String or Numpy.ndarray')
 
     logger.info('read_image_from_source - Successfully read image from the source')
 
@@ -83,25 +82,25 @@ def retrieve_local_image_width_and_height(image_path: str) -> Tuple[int, int]:
 
         image = cv2.imread(image_path)
 
-    except FileNotFoundError as e:
+    except FileNotFoundError:
 
-        logger.error('retrieve_local_image_width_and_height - Unable to find the image {}'.format(image_path))
-        logger.error(e)
-        raise FileNotFoundError
+        raise FileNotFoundError('retrieve_local_image_width_and_height - Unable to find the image {}'.format(image_path))
 
     else:
 
         logger.info('retrieve_local_image_width_and_height - Image successfully read')
 
-    finally:
+    logger.info('retrieve_local_image_width_and_height - Retrieving image width and height')
 
-        # Compute image's width and height
-        image_width = image.shape[1]
-        image_height = image.shape[0]
+    # Compute image's width and height
+    image_width = image.shape[1]
+    image_height = image.shape[0]
 
-        logger.info('retrieve_local_image_width_and_height - End')
+    logger.info('retrieve_local_image_width_and_height - Successfully retrieved image width and height')
 
-        return image_width, image_height
+    logger.info('retrieve_local_image_width_and_height - End')
+
+    return image_width, image_height
 
 
 def read_blob_from_local_image(image_path: str,
@@ -141,21 +140,17 @@ def read_blob_from_local_image(image_path: str,
                                            swapRB=swap_rb,
                                            crop=crop)
 
-    except FileNotFoundError as e:
+    except FileNotFoundError:
 
-        logger.error('read_blob_from_local_image - Unable to find the image {}'.format(image_path))
-        logger.error(e)
-        raise FileNotFoundError
+        raise FileNotFoundError('read_blob_from_local_image - Unable to find the image {}'.format(image_path))
 
     else:
 
         logger.info('read_blob_from_local_image - Blob from the image successfully created')
 
-    finally:
+    logger.info('read_blob_from_local_image - End')
 
-        logger.info('read_blob_from_local_image - End')
-
-        return blob_image
+    return blob_image
 
 
 def retrieve_neural_network_output(neural_network: cv2.dnn.Net,
@@ -182,11 +177,9 @@ def retrieve_neural_network_output(neural_network: cv2.dnn.Net,
         # Set Blob as the neural network input
         neural_network.setInput(blob)
 
-    except Exception as e:
+    except Exception:
 
-        logger.error('retrieve_neural_network_output - Unable to set neural network input')
-        logger.error(e)
-        sys.exit(1)
+        raise Exception('retrieve_neural_network_output - Unable to set neural network input')
 
     else:
 
@@ -199,21 +192,17 @@ def retrieve_neural_network_output(neural_network: cv2.dnn.Net,
         # Compute the model's output of only the three output layers
         outputs = neural_network.forward(output_layers)
 
-    except Exception as e:
+    except Exception:
 
-        logger.error('retrieve_neural_network_output - Unable to feed forward the input through the Neural Network')
-        logger.error(e)
-        sys.exit(1)
+        raise Exception('retrieve_neural_network_output - Unable to feed forward the input through the Neural Network')
 
     else:
 
         logger.info('retrieve_neural_network_output - Successfully retrieve neural network outputs')
-        
-    finally:
-        
-        logger.info('retrieve_neural_network_output - End')
 
-        return outputs
+    logger.info('retrieve_neural_network_output - End')
+
+    return outputs
 
 
 def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
@@ -326,11 +315,9 @@ def retrieve_max_confident_class_index(image_width: int,
                                                                                                image_height,
                                                                                                detection_confidence_threshold)
 
-    except Exception as e:
+    except Exception:
 
-        logger.error('retrieve_max_confident_class_index - Unable to retrieve detected classes')
-        logger.error(e)
-        sys.exit(1)
+        raise Exception('retrieve_max_confident_class_index - Unable to retrieve detected classes')
 
     else:
 
@@ -346,18 +333,14 @@ def retrieve_max_confident_class_index(image_width: int,
                                          detection_confidence_threshold,
                                          non_max_suppression_threshold)
 
-    except Exception as e:
+    except Exception:
 
-        logger.error('retrieve_max_confident_class_index - Unable to apply Non-max Suppression')
-        logger.error(e)
-        sys.exit(1)
+        raise Exception('retrieve_max_confident_class_index - Unable to apply Non-max Suppression')
 
     else:
 
         logger.info('retrieve_max_confident_class_index - Successfully applied Non-max Suppression')
 
-    finally:
+    logger.info('retrieve_max_confident_class_index - End')
 
-        logger.info('retrieve_max_confident_class_index - End')
-
-        return detected_classes[class_indices[0]]
+    return detected_classes[class_indices[0]]
