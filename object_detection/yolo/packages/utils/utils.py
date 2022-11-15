@@ -34,25 +34,19 @@ def read_configuration(file_name: str) -> dict:
 
             configuration = yaml.safe_load(config_file.read())
 
-    except FileNotFoundError as e:
+    except FileNotFoundError:
 
-        logger.error('read_data - File {} not found'.format(file_name))
-        logger.error(e)
-        raise FileNotFoundError
+        raise FileNotFoundError('read_data - File {} not found'.format(file_name))
 
-    except Exception as e:
+    except Exception:
 
-        logger.error('read_configuration - Unable to read {}'.format(file_name))
-        logger.error(e)
-        raise e
+        raise Exception('read_configuration - Unable to read {}'.format(file_name))
 
     else:
 
         logger.info('read_configuration - Configuration file {} read successfully'.format(file_name))
 
-    finally:
+    logger.info('read_configuration - End')
 
-        logger.info('read_configuration - End')
-
-        return configuration
+    return configuration
 
