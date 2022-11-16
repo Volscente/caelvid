@@ -76,8 +76,8 @@ def test__get_output_layers(test_object_detector: ObjectDetector,
 
 
 @pytest.mark.parametrize('image_source, expected_shape', [
-    ('./data/test_images/image_1.jpeg', (768, 576)),
-    ('./data/test_images/image_2.jpeg', (1, 1))
+    ('./data/test_images/image_1.jpeg', (576, 768, 3)),
+    ('./data/test_images/image_2.png', (667, 1000, 3))
 ])
 def test_read_image_from_source(image_source, expected_shape):
     """
@@ -93,7 +93,7 @@ def test_read_image_from_source(image_source, expected_shape):
     # Read the image from the source
     image = read_image_from_source(image_source)
 
-    print(image.shape)
+    assert image.shape == expected_shape
 
 
 @pytest.mark.parametrize('image_path, expected_dimensions', [
