@@ -10,6 +10,7 @@ matplotlib = "*"
 jupyterlab = "*"
 pytest = "*"
 pyyaml = "*"
+pillow = "*"
 
 [dev-packages]
 
