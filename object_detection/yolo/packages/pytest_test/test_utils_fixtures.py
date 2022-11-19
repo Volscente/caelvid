@@ -8,7 +8,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Libraries
 from packages.object_detection.object_detection import ObjectDetector
-from packages.object_detection.object_detection_utils import read_blob_from_local_image
+from packages.object_detection.object_detection_utils import read_image_from_source, read_blob_from_local_image
 from packages.utils.utils import read_configuration
 
 
@@ -34,6 +34,18 @@ def test_object_detector() -> ObjectDetector:
     """
 
     return ObjectDetector()
+
+
+@pytest.fixture
+def test_image(test_configuration) -> np.ndarray:
+    """
+    Fixture for an Open CV image representation
+
+    Returns:
+        Numpy.ndarray Open CV image representation
+    """
+
+    return read_image_from_source(test_configuration['test_image'])
 
 
 @pytest.fixture
