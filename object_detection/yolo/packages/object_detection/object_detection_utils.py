@@ -62,43 +62,29 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
     return image
 
 
-def retrieve_local_image_width_and_height(image_path: str) -> Tuple[int, int]:
+def retrieve_image_width_and_height(image: np.ndarray) -> Tuple[int, int]:
     """
-    Read the image with OpenCV and retrieve Width and Height of the image
+    Retrieve Width and Height of the image
 
     Args:
-        image_path: String image path
+        image: Numpy.ndarray image representation
 
     Returns:
         image_width: Integer width of the image
         image_height: Integer height of the image
     """
 
-    logger.info('retrieve_local_image_width_and_height - Start')
+    logger.info('retrieve_image_width_and_height - Start')
 
-    try:
+    logger.info('retrieve_image_width_and_height - Retrieving image width and height')
 
-        logger.info('retrieve_local_image_width_and_height - Reading the image')
-
-        image = cv2.imread(image_path)
-
-    except FileNotFoundError:
-
-        raise FileNotFoundError('retrieve_local_image_width_and_height - Unable to find the image {}'.format(image_path))
-
-    else:
-
-        logger.info('retrieve_local_image_width_and_height - Image successfully read')
-
-    logger.info('retrieve_local_image_width_and_height - Retrieving image width and height')
-
-    # Compute image's width and height
+    # Retrieve image's width and height
     image_width = image.shape[1]
     image_height = image.shape[0]
 
-    logger.info('retrieve_local_image_width_and_height - Successfully retrieved image width and height')
+    logger.info('retrieve_image_width_and_height - Successfully retrieved image width and height')
 
-    logger.info('retrieve_local_image_width_and_height - End')
+    logger.info('retrieve_image_width_and_height - End')
 
     return image_width, image_height
 
