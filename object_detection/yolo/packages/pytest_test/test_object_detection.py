@@ -96,6 +96,27 @@ def test_read_image_from_source(image_source, expected_shape):
     assert image.shape == expected_shape
 
 
+@pytest.mark.parametrize('image_source, expected_exception', [
+    ('./data/test_images/wront_path_image.jpeg', FileNotFoundError),
+    (0, TypeError)
+])
+def test_read_image_from_source_exceptions(image_source: str | int,
+                                           expected_exception: Exception):
+    """
+    Test exception triggers for the function packages.object_detection.object_detection_utils.read_image_from_source
+
+    Args:
+        image_source: String wrong image path | Integer wrong image representation
+        expected_exception: Exception expected exception
+
+    Returns:
+    """
+
+    with pytest.raises(expected_exception):
+        
+        read_image_from_source(image_source)
+
+
 @pytest.mark.parametrize('image_path, expected_dimensions', [
     ('./data/test_images/image_1.jpeg', (576, 768, 3))
 ])
