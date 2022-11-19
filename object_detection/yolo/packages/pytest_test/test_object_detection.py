@@ -113,7 +113,7 @@ def test_read_image_from_source_exceptions(image_source: str | int,
     """
 
     with pytest.raises(expected_exception):
-        
+
         read_image_from_source(image_source)
 
 
