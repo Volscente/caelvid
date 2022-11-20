@@ -8,7 +8,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Libraries
 from packages.object_detection.object_detection import ObjectDetector
-from packages.object_detection.object_detection_utils import read_image_from_source, read_blob_from_local_image
+from packages.object_detection.object_detection_utils import read_image_from_source, read_blob_from_image
 from packages.utils.utils import read_configuration
 
 
@@ -37,7 +37,7 @@ def test_object_detector() -> ObjectDetector:
 
 
 @pytest.fixture
-def test_image(test_configuration) -> np.ndarray:
+def test_image(test_configuration: dict) -> np.ndarray:
     """
     Fixture for an Open CV image representation
 
@@ -49,19 +49,21 @@ def test_image(test_configuration) -> np.ndarray:
 
 
 @pytest.fixture
-def test_blob(test_configuration) -> np.ndarray:
+def test_blob(test_image: np.ndarray,
+              test_configuration: dict) -> np.ndarray:
     """
     Fixture for a Blob image
 
     Args:
+        test_image: Numpy.ndarray Open CV image representation
         test_configuration: Dictionary configuration object
 
     Returns:
         Numpy.ndarray Blob
     """
 
-    return read_blob_from_local_image(test_configuration['test_image'],
-                                      test_configuration['blob_size'],
-                                      test_configuration['blob_scale_factor'],
-                                      test_configuration['blob_swap_rb'],
-                                      test_configuration['blob_crop'])
+    return read_blob_from_image(test_image,
+                                test_configuration['blob_size'],
+                                test_configuration['blob_scale_factor'],
+                                test_configuration['blob_swap_rb'],
+                                test_configuration['blob_crop'])

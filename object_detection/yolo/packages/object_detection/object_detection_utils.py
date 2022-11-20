@@ -89,52 +89,39 @@ def retrieve_image_width_and_height(image: np.ndarray) -> Tuple[int, int]:
     return image_width, image_height
 
 
-def read_blob_from_local_image(image_path: str,
-                               size: List[int],
-                               scale_factor: float,
-                               swap_rb: bool,
-                               crop: bool) -> np.ndarray:
+def read_blob_from_image(image: np.ndarray,
+                         size: List[int],
+                         scale_factor: float,
+                         swap_rb: bool,
+                         crop: bool) -> np.ndarray:
     """
     Create a 4-dimensional (images, channels, width, height) Blob from a OpenCV image
 
     Args:
-        image_path: String image path
+        image: Numpy.ndarray image representation
         size: List integer resize dimensions
         scale_factor: Float pixel scale factor
         swap_rb: Bool flag for swapping R channel with B channel
         crop: Bool flag to crop the image
 
     Returns:
-        blob_image: numpy.ndarray Blob
+        blob_image: Numpy.ndarray Blob
     """
 
-    logger.info('read_blob_from_local_image - Start')
+    logger.info('read_blob_from_image - Start')
 
-    try:
+    logger.info('read_blob_from_image - Creating Blob from the image')
 
-        logger.info('read_blob_from_local_image - Reading image from {}'.format(image_path))
+    # Create a 4-dimensional (images, channels, width, height) Blob from an image
+    blob_image = cv2.dnn.blobFromImage(image=image,
+                                       size=(size[0], size[1]),
+                                       scalefactor=float(scale_factor),
+                                       swapRB=swap_rb,
+                                       crop=crop)
 
-        # Read image through Open CV as a 3-D Numpy ndarray
-        image = cv2.imread(image_path)
+    logger.info('read_blob_from_image - Blob from the image successfully created')
 
-        logger.info('read_blob_from_local_image - Creating Blob from the image')
-
-        # Create a 4-dimensional (images, channels, width, height) Blob from an image
-        blob_image = cv2.dnn.blobFromImage(image=image,
-                                           size=(size[0], size[1]),
-                                           scalefactor=float(scale_factor),
-                                           swapRB=swap_rb,
-                                           crop=crop)
-
-    except FileNotFoundError:
-
-        raise FileNotFoundError('read_blob_from_local_image - Unable to find the image {}'.format(image_path))
-
-    else:
-
-        logger.info('read_blob_from_local_image - Blob from the image successfully created')
-
-    logger.info('read_blob_from_local_image - End')
+    logger.info('read_blob_from_image - End')
 
     return blob_image
 
@@ -238,7 +225,6 @@ def retrieve_all_detected_classes(outputs: Tuple[List, List, List],
 
             # Check if the confidence is greater than the threshold
             if detected_confidence > detection_confidence_threshold:
-
                 # Retrieve box coordinates
                 center_x = int(detection[0] * image_width)
                 center_y = int(detection[1] * image_height)

@@ -16,7 +16,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 from packages.logging_module.logging_module import get_logger
 from packages.utils.utils import read_configuration
 from packages.object_detection.object_detection_utils import read_image_from_source, retrieve_image_width_and_height, \
-    read_blob_from_local_image, retrieve_max_confident_class_index
+    read_blob_from_image, retrieve_max_confident_class_index
 
 
 class ObjectDetector:
@@ -126,7 +126,8 @@ class ObjectDetector:
         # Retrieve yolov3.weights if not present
         try:
 
-            self.logger.info('__read_neural_network - Checking if the file {} is already downloaded'.format(model_weights_file_path))
+            self.logger.info(
+                '__read_neural_network - Checking if the file {} is already downloaded'.format(model_weights_file_path))
 
             # Check whatever the 'yolov3.weights' file is not present and download it
             if not os.path.isfile(model_weights_file_path):
@@ -235,16 +236,16 @@ class ObjectDetector:
         swap_rb = self.config['blob_swap_rb']
         crop = self.config['blob_crop']
 
-        self.logger.info('detect_single_object - Creating Blob from local image')
+        self.logger.info('detect_single_object - Creating Blob from image')
 
         # Retrieve Blob image from local file
-        blob = read_blob_from_local_image(image_path,
-                                          size,
-                                          scale_factor,
-                                          swap_rb,
-                                          crop)
+        blob = read_blob_from_image(image,
+                                    size,
+                                    scale_factor,
+                                    swap_rb,
+                                    crop)
 
-        self.logger.info('detect_single_object - Blob from local image successfully created')
+        self.logger.info('detect_single_object - Blob from image successfully created')
 
         self.logger.info('detect_single_object - Retrieving the class with the max confident detection level')
 
@@ -257,7 +258,8 @@ class ObjectDetector:
                                                          self.config['detection_confidence_threshold'],
                                                          self.config['non_max_suppression_threshold'])
 
-        self.logger.info('detect_single_object - Successfully retrieved the class with the max confident detection level')
+        self.logger.info(
+            'detect_single_object - Successfully retrieved the class with the max confident detection level')
 
         # Retrieve class
         detected_class = self.classes[class_index]

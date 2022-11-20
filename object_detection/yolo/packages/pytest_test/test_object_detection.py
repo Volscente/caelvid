@@ -12,7 +12,8 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 from packages.pytest_test.test_utils_fixtures import test_object_detector, test_configuration, test_image, test_blob
 from packages.object_detection.object_detection import ObjectDetector
 from packages.object_detection.object_detection_utils import read_image_from_source, retrieve_image_width_and_height, \
-    read_blob_from_local_image, retrieve_neural_network_output, retrieve_all_detected_classes, retrieve_max_confident_class_index
+    read_blob_from_image, retrieve_neural_network_output, retrieve_all_detected_classes, \
+    retrieve_max_confident_class_index
 
 
 @pytest.mark.parametrize('input_class', [
@@ -113,7 +114,6 @@ def test_read_image_from_source_exceptions(image_source: str | int,
     """
 
     with pytest.raises(expected_exception):
-
         read_image_from_source(image_source)
 
 
@@ -138,29 +138,29 @@ def test_retrieve_image_width_and_height(test_image: np.ndarray,
     assert width == expected_dimension[0] and height == expected_dimension[1]
 
 
-@pytest.mark.parametrize('image_path, expected_shape', [
-    ('./data/test_images/image_1.jpeg', (1, 3, 416, 416))
+@pytest.mark.parametrize('expected_shape', [
+   (1, 3, 416, 416)
 ])
-def test_read_blob_from_local_image(image_path: str,
-                                    expected_shape: Tuple[int, int, int, int],
-                                    test_configuration: dict):
+def test_read_blob_from_image(test_image: np.ndarray,
+                              test_configuration: dict,
+                              expected_shape: Tuple[int, int, int, int]):
     """
-    Test the function packages.object_detection.object_detection_utils.read_blob_from_local_image
+    Test the function packages.object_detection.object_detection_utils.read_blob_from_image
 
     Args:
-        image_path: String image path
-        expected_shape: Tuple[int, int, int, int] expected resulting blob shape
+        test_image: Numpy.ndarray image representation
         test_configuration: Dictionary configuration object
+        expected_shape: Tuple[int, int, int, int] expected resulting blob shape
 
     Returns:
     """
 
     # Apply the function
-    blob = read_blob_from_local_image(image_path,
-                                      test_configuration['blob_size'],
-                                      test_configuration['blob_scale_factor'],
-                                      test_configuration['blob_swap_rb'],
-                                      test_configuration['blob_crop'])
+    blob = read_blob_from_image(test_image,
+                                test_configuration['blob_size'],
+                                test_configuration['blob_scale_factor'],
+                                test_configuration['blob_swap_rb'],
+                                test_configuration['blob_crop'])
 
     assert blob.shape == expected_shape
 
@@ -215,9 +215,9 @@ def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
 
     # Retrieve detected classes
     detected_classes, _, _ = retrieve_all_detected_classes(outputs,
-                                                        input_image_width,
-                                                        input_image_height,
-                                                        test_configuration['detection_confidence_threshold'])
+                                                           input_image_width,
+                                                           input_image_height,
+                                                           test_configuration['detection_confidence_threshold'])
 
     assert len(detected_classes) == expected_length
 
@@ -231,7 +231,6 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
                                             test_configuration: dict,
                                             test_object_detector: ObjectDetector,
                                             expected_class_index: int):
-
     """
     Test the function Test the function packages.object_detection.object_detection_utils.retrieve_max_confident_class_index
 
@@ -248,11 +247,11 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
     image_width, image_height = retrieve_image_width_and_height(input_image_path)
 
     # Compute blob from image
-    blob = read_blob_from_local_image(input_image_path,
-                                      test_configuration['blob_size'],
-                                      test_configuration['blob_scale_factor'],
-                                      test_configuration['blob_swap_rb'],
-                                      test_configuration['blob_crop'])
+    blob = read_blob_from_image(input_image_path,
+                                test_configuration['blob_size'],
+                                test_configuration['blob_scale_factor'],
+                                test_configuration['blob_swap_rb'],
+                                test_configuration['blob_crop'])
 
     # Retrieve the max confident class index
     class_index = retrieve_max_confident_class_index(image_width,
@@ -272,8 +271,8 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
     ('./data/test_images/image_3.png', 'apple'),
 ])
 def test_detect_single_object(input_image_path: str,
-                                    test_object_detector: ObjectDetector,
-                                    expected_class: str):
+                              test_object_detector: ObjectDetector,
+                              expected_class: str):
     """
     Test the method 'detect_single_object' from the ObjectDetector class
 
