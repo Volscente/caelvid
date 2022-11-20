@@ -243,11 +243,14 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
     Returns:
     """
 
+    # Read image
+    image = read_image_from_source(input_image_path)
+
     # Retrieve image dimensions
-    image_width, image_height = retrieve_image_width_and_height(input_image_path)
+    image_width, image_height = retrieve_image_width_and_height(image)
 
     # Compute blob from image
-    blob = read_blob_from_image(input_image_path,
+    blob = read_blob_from_image(image,
                                 test_configuration['blob_size'],
                                 test_configuration['blob_scale_factor'],
                                 test_configuration['blob_swap_rb'],
