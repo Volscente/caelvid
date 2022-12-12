@@ -3,13 +3,12 @@ import os
 import cv2
 import sys
 from typing import List
+import numpy as np
 
 from urllib.request import urlretrieve
 from urllib.error import URLError
 
 # Set root path
-import numpy as np
-
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Libraries
