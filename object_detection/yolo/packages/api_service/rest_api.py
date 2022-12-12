@@ -2,6 +2,14 @@
 from fastapi import FastAPI, UploadFile, File
 import cv2
 import numpy as np
+import os
+
+# Set root path
+os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
+
+# Import Package Libraries
+#from packages.logging_module.logging_module import get_logger
+#from packages.object_detection.object_detection import ObjectDetector
 
 # Instance FastAPI object
 app = FastAPI()
