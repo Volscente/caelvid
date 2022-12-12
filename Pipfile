@@ -12,6 +12,7 @@ pytest = "*"
 pyyaml = "*"
 pillow = "*"
 fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
 
 [dev-packages]
 
