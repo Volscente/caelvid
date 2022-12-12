@@ -13,6 +13,7 @@ pyyaml = "*"
 pillow = "*"
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
+python-multipart = "*"
 
 [dev-packages]
 
