@@ -8,6 +8,7 @@ import os
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Libraries
+# TODO Fix ModuleNotFoundError: No module named 'packages'
 #from packages.logging_module.logging_module import get_logger
 #from packages.object_detection.object_detection import ObjectDetector
 
