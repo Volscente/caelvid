@@ -22,3 +22,7 @@ loggers:
     level: INFO
     handlers: [ console ]
     propagate: no
+  rest_api:
+    level: INFO
+    handlers: [ console ]
+    propagate: no
