@@ -8,13 +8,11 @@ import os
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Libraries
-# TODO Fix ModuleNotFoundError: No module named 'packages'
-#from packages.logging_module.logging_module import get_logger
-#from packages.object_detection.object_detection import ObjectDetector
+from packages.logging_module.logging_module import get_logger
+from packages.object_detection.object_detection import ObjectDetector
 
 # Instance FastAPI object
 app = FastAPI()
-
 
 @app.post('/file')
 def upload_image(image_file: UploadFile = File(...)):

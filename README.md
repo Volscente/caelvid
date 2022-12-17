@@ -1,8 +1,18 @@
 # Introduction
 The repository contains several computer vision models
 
-# Installation
+# Object Detection
 
-## Set up Environment Variables
+## Yolo
+
+### Installation
+
+##### Set up Environment Variables
 Set up an environment variables called `YOLO_OBJECT_DETECTION_PATH` that hosts the path to the `./object_detection/yolo`
 folder.
+
+### Running API Service
+Change directory into `object_detection/yolo` and run the following command:
+``` bash
+uvicorn packages.api_service.rest_api:app --reload
+```
