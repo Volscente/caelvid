@@ -17,3 +17,7 @@ blob_crop: False
 # Inference Parameters
 detection_confidence_threshold: 0.5
 non_max_suppression_threshold: 0.4
+
+# Rest API Configurations
+detect_object_valid_content_types: ['image/jpeg',
+                                    'image/png']
