@@ -43,6 +43,7 @@ def detect_object(image: UploadFile = File(...,
     object_detector = ObjectDetector()
 
     # Compute detected object
+    # TODO Fix error with image_2
     detected_object = object_detector.detect_single_object(image_numpy)
 
     return {'detected_object': detected_object}
