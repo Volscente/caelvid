@@ -53,7 +53,7 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
                                         cv2.IMREAD_UNCHANGED)
 
         # Convert the image from 4 channels to 3 channels
-        image = cv2.cvtColor(image_4_channels, 
+        image = cv2.cvtColor(image_4_channels,
                              cv2.COLOR_BGRA2BGR)
 
     else:
