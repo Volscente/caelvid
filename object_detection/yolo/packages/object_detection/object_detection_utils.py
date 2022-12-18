@@ -49,13 +49,17 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
     elif type(image_source) == np.ndarray:
 
         # Read image from Numpy.ndarray image representation
-        image = cv2.imdecode(image_source, cv2.IMREAD_UNCHANGED)
+        # TODO Fix reading 4 channels instead of 3
+        image = cv2.imdecode(image_source,
+                             cv2.IMREAD_UNCHANGED)
 
     else:
 
         raise TypeError('read_image_from_source - Image source type muse be String or Numpy.ndarray')
 
     logger.info('read_image_from_source - Successfully read image from the source')
+
+    logger.info('read_image_from_source - Image Shape: {}'.format(image.shape))
 
     logger.info('read_image_from_source - End')
 
