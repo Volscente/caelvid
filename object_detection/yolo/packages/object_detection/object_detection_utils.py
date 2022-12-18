@@ -49,9 +49,12 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
     elif type(image_source) == np.ndarray:
 
         # Read image from Numpy.ndarray image representation
-        # TODO Fix reading 4 channels instead of 3
-        image = cv2.imdecode(image_source,
-                             cv2.IMREAD_UNCHANGED)
+        image_4_channels = cv2.imdecode(image_source,
+                                        cv2.IMREAD_UNCHANGED)
+
+        # Convert the image from 4 channels to 3 channels
+        image = cv2.cvtColor(image_4_channels, 
+                             cv2.COLOR_BGRA2BGR)
 
     else:
 
