@@ -8,7 +8,7 @@ from typing import Tuple
 # Set root path
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
-# Import Package Libraries
+# Import Package Modules
 from packages.pytest_test.test_utils_fixtures import test_object_detector, test_configuration, test_image, test_blob
 from packages.object_detection.object_detection import ObjectDetector
 from packages.object_detection.object_detection_utils import read_image_from_source, retrieve_image_width_and_height, \

@@ -11,7 +11,7 @@ import numpy as np
 
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
-# Import Package Libraries
+# Import Package Modules
 from packages.logging_module.logging_module import get_logger
 
 # Setup logger

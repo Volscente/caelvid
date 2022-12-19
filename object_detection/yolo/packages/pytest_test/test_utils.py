@@ -5,7 +5,7 @@ import pytest
 # Set root path
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
-# Import Package Libraries
+# Import Package Modules
 from packages.pytest_test.test_utils_fixtures import test_object_detector
 from packages.object_detection.object_detection import ObjectDetector
 from packages.utils.utils import read_configuration

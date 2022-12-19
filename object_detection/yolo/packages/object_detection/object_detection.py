@@ -11,7 +11,7 @@ from urllib.error import URLError
 # Set root path
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
-# Import Package Libraries
+# Import Package Modules
 from packages.logging_module.logging_module import get_logger
 from packages.utils.utils import read_configuration
 from packages.object_detection.object_detection_utils import read_image_from_source, retrieve_image_width_and_height, \

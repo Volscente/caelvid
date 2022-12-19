@@ -7,7 +7,7 @@ import os
 # Set root path
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
-# Import Package Libraries
+# Import Package Modules
 from packages.logging_module.logging_module import get_logger
 from packages.object_detection.object_detection import ObjectDetector
 from packages.utils.utils import read_configuration
