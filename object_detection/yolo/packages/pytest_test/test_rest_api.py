@@ -15,12 +15,14 @@ test_client = TestClient(app)
 
 def test_detect_object():
 
-    with open('./data/test_images/image_1.jpeg', 'rb') as file:
+    #with open('./data/test_images/image_1.jpeg', 'rb') as file:
 
         # Call the REST API
-        response = test_client.post('/detect_object/',
-                                    files={'file': ('filename', file, 'image/jpeg')})
+        #response = test_client.post('/detect_object/',
+        #                            files={'file': ('filename', file, 'image/jpeg')})
 
-        print(response)
+    files = {"image": open("./data/test_images/image_1.jpeg", "rb")}
+    response = test_client.post("/detect_object/", files=files)
 
-        pass
+    print('Response:')
+    print(response)
