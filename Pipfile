@@ -10,6 +10,11 @@ matplotlib = "*"
 jupyterlab = "*"
 pytest = "*"
 pyyaml = "*"
+pillow = "*"
+fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+python-multipart = "*"
+httpx = "*"
 
 [dev-packages]
 

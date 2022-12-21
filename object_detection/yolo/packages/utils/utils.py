@@ -6,7 +6,7 @@ import yaml
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Modules
-from modules.logging_module.logging_module import get_logger
+from packages.logging_module.logging_module import get_logger
 
 # Setup logger
 logger = get_logger(os.path.basename(__file__).split('.')[0])
@@ -20,7 +20,7 @@ def read_configuration(file_name: str) -> dict:
         file_name: String configuration file name to read
 
     Returns:
-        Dict configuration
+        configuration: Dictionary configuration
     """
 
     logger.info('read_configuration - Start')
@@ -32,27 +32,21 @@ def read_configuration(file_name: str) -> dict:
         # Read configuration file
         with open('./configuration/' + file_name) as config_file:
 
-            configuration = yaml.safe_load(config_file)
+            configuration = yaml.safe_load(config_file.read())
 
-    except FileNotFoundError as e:
+    except FileNotFoundError:
 
-        logger.error('read_data - File {} not found'.format(file_name))
-        logger.error(e)
-        raise FileNotFoundError
+        raise FileNotFoundError('read_data - File {} not found'.format(file_name))
 
-    except Exception as e:
+    except Exception:
 
-        logger.error('read_configuration - Unable to read {}'.format(file_name))
-        logger.error(e)
-        raise e
+        raise Exception('read_configuration - Unable to read {}'.format(file_name))
 
     else:
 
         logger.info('read_configuration - Configuration file {} read successfully'.format(file_name))
 
-    finally:
+    logger.info('read_configuration - End')
 
-        logger.info('read_configuration - End')
-
-        return configuration
+    return configuration
 
