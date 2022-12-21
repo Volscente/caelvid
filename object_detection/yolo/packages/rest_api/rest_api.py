@@ -25,7 +25,15 @@ app = FastAPI()
 @app.post('/detect_object/')
 def detect_object(image: UploadFile = File(...,
                                            description='Image file from which detect the object')):
-    # TODO: Docstring
+    """
+    Detected the object within the input image
+
+    Args:
+        image: UploadFile request body image file
+
+    Returns:
+        response_body Dictionary with the detected object
+    """
 
     logger.info('detect_object - Check file content type')
 
