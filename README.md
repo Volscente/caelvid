@@ -14,5 +14,5 @@ folder.
 ### Running API Service
 Change directory into `object_detection/yolo` and run the following command:
 ``` bash
-uvicorn packages.api_service.rest_api:app --reload
+uvicorn packages.rest_api.rest_api:app --reload
 ```
