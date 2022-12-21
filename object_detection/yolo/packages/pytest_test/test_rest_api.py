@@ -15,17 +15,26 @@ from packages.rest_api.rest_api import app
 test_client = TestClient(app)
 
 
-
-def test_detect_object():
+@pytest.mark.parametrize('test_file, expected_output', [
+    ('./data/test_images/image_1.jpeg', 'dog'),
+    ('./data/test_images/image_2.png', 'cow'),
+    ('./data/test_images/image_3.png', 'apple'),
+])
+def test_detect_object(test_file: str,
+                       expected_output: str):
 
     """
-    TODO: Docstrings
-    Returns:
+    Test the function packages.rest_api.rest_api.detect_object
 
+    Args:
+        test_file: String test file path
+        expected_output: String expected detected class
+
+    Returns:
     """
 
     # Define the File to upload
-    files = {"image": open("./data/test_images/image_1.jpeg", "rb")}
+    files = {"image": open(test_file, "rb")}
 
     # Retrieve the response
     response = test_client.post("/detect_object/", files=files)
@@ -33,5 +42,4 @@ def test_detect_object():
     # Parse the response as JSON
     json_response = json.loads(response.content.decode('utf-8'))
 
-    print('Response:')
-    print(json_response['detected_object'])
+    assert expected_output == json_response['detected_object']
