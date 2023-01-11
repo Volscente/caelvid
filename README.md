@@ -21,3 +21,7 @@ uvicorn packages.rest_api.rest_api:app --reload
 
 #### Build
 The Dockerfile is located in the `docker/detect_single_object.Dockerfile` and it is possible to build it through the following command:
+
+``` bash
+docker image build -t <repository>/<image_name>:<tag> -f detect_single_object.Dockerfile .
+```
