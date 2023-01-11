@@ -16,3 +16,8 @@ Change directory into `object_detection/yolo` and run the following command:
 ``` bash
 uvicorn packages.rest_api.rest_api:app --reload
 ```
+
+### Docker
+
+#### Build
+The Dockerfile is located in the `docker/detect_single_object.Dockerfile` and it is possible to build it through the following command:
