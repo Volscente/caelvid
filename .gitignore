@@ -129,4 +129,7 @@ dmypy.json
 .idea
 
 # MacOS Files
+.DS_STORE
+
+# Model's Specific Files
 models/yolov3.weights
