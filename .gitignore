@@ -126,12 +126,5 @@ venv.bak/
 dmypy.json
 
 # Pyre type checker
-.pyre/
-.idea/computer_vision.iml
-.idea/inspectionProfiles/profiles_settings.xml
-.idea/inspectionProfiles/Project_Default.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-object_detection/yolo/models/yolov3.weights
-.idea/workspace.xml
+.idea
+models/yolov3.weights
