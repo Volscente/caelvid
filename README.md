@@ -1,5 +1,5 @@
-# Introduction
-The repository contains several computer vision models
+# Caelvid
+Caelvid comes from the latin "Caelum Videre", which means "Look at the Sky". It is a library including several computer vision models
 
 # Object Detection
 
