@@ -9,7 +9,7 @@ from fastapi.testclient import TestClient
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Modules
-from src.rest_api.rest_api import app
+from src.object_detection.object_detection_rest_api import app
 
 # Instance TestClient object
 test_client = TestClient(app)
