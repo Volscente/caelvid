@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "caelvid"
+version = "0.1.0"
+description = "It is a library including several computer vision models"
+authors = ["Simone Porreca <porrecasimone@gmail.com>"]
+license = "GPL-3.0-or-later"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
