@@ -1,14 +1,11 @@
 # Import Standard Libraries
 import os
 import sys
-
 import cv2
-
 from typing import Tuple, List
-
-# Set root path
 import numpy as np
 
+# Set root path
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Modules
