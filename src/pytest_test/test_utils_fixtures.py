@@ -24,6 +24,7 @@ def test_configuration() -> dict:
     return read_configuration('config.yaml')
 
 
+# TODO: extract to test_object_detection_yolov3_fixtures.py
 @pytest.fixture
 def test_object_detector() -> ObjectDetector:
     """
@@ -36,6 +37,7 @@ def test_object_detector() -> ObjectDetector:
     return ObjectDetector()
 
 
+# TODO: extract to test_object_detection_yolov3_fixtures.py
 @pytest.fixture
 def test_image(test_configuration: dict) -> np.ndarray:
     """
@@ -48,6 +50,7 @@ def test_image(test_configuration: dict) -> np.ndarray:
     return read_image_from_source(test_configuration['test_image'])
 
 
+# TODO: extract to test_object_detection_yolov3_fixtures.py
 @pytest.fixture
 def test_blob(test_image: np.ndarray,
               test_configuration: dict) -> np.ndarray:
