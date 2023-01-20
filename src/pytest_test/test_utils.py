@@ -7,7 +7,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Modules
 from src.pytest_test.test_utils_fixtures import test_object_detector
-from src.object_detection.object_detection import ObjectDetector
+from src.object_detection_yolov3.object_detection import ObjectDetector
 from src.utils.utils import read_configuration
 
 

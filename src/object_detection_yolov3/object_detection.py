@@ -14,7 +14,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 # Import Package Modules
 from src.logging_module.logging_module import get_logger
 from src.utils.utils import read_configuration
-from src.object_detection.object_detection_utils import read_image_from_source, retrieve_image_width_and_height, \
+from src.object_detection_yolov3.object_detection_utils import read_image_from_source, retrieve_image_width_and_height, \
     read_blob_from_image, retrieve_max_confident_class_index
 
 

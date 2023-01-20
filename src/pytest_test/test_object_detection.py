@@ -10,8 +10,8 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Modules
 from src.pytest_test.test_utils_fixtures import test_object_detector, test_configuration, test_image, test_blob
-from src.object_detection.object_detection import ObjectDetector
-from src.object_detection.object_detection_utils import read_image_from_source, retrieve_image_width_and_height, \
+from src.object_detection_yolov3.object_detection import ObjectDetector
+from src.object_detection_yolov3.object_detection_utils import read_image_from_source, retrieve_image_width_and_height, \
     read_blob_from_image, retrieve_neural_network_output, retrieve_all_detected_classes, \
     retrieve_max_confident_class_index
 
@@ -24,7 +24,7 @@ from src.object_detection.object_detection_utils import read_image_from_source, 
 def test__read_classes(test_object_detector: ObjectDetector,
                        input_class: str):
     """
-    Test the function src.object_detection.object_detection.ObjectDetector.__read_classes
+    Test the function src.object_detection_yolov3.object_detection_yolov3.ObjectDetector.__read_classes
 
     Args:
         test_object_detector: ObjectDetector instance
@@ -44,7 +44,7 @@ def test__read_classes(test_object_detector: ObjectDetector,
 def test__read_neural_network(test_object_detector: ObjectDetector,
                               input_layer: str):
     """
-    Test the function src.object_detection.object_detection.ObjectDetector.__read_neural_network
+    Test the function src.object_detection_yolov3.object_detection_yolov3.ObjectDetector.__read_neural_network
 
     Args:
         test_object_detector: ObjectDetector instance
@@ -64,7 +64,7 @@ def test__read_neural_network(test_object_detector: ObjectDetector,
 def test__get_output_layers(test_object_detector: ObjectDetector,
                             test_output_layer: str):
     """
-    Test the function src.object_detection.object_detection.ObjectDetector.__get_output_layers
+    Test the function src.object_detection_yolov3.object_detection_yolov3.ObjectDetector.__get_output_layers
 
     Args:
         test_object_detector: ObjectDetector instance
@@ -82,7 +82,7 @@ def test__get_output_layers(test_object_detector: ObjectDetector,
 ])
 def test_read_image_from_source(image_source, expected_shape):
     """
-    Test the function src.object_detection.object_detection_utils.read_image_from_source
+    Test the function src.object_detection_yolov3.object_detection_utils.read_image_from_source
 
     Args:
         image_source: String image path from local File System | Numpy.ndarray image representation
@@ -104,7 +104,7 @@ def test_read_image_from_source(image_source, expected_shape):
 def test_read_image_from_source_exceptions(image_source: str | int,
                                            expected_exception: Exception):
     """
-    Test exception triggers for the function src.object_detection.object_detection_utils.read_image_from_source
+    Test exception triggers for the function src.object_detection_yolov3.object_detection_utils.read_image_from_source
 
     Args:
         image_source: String wrong image path | Integer wrong image representation
@@ -123,7 +123,7 @@ def test_read_image_from_source_exceptions(image_source: str | int,
 def test_retrieve_image_width_and_height(test_image: np.ndarray,
                                          expected_dimension: Tuple[int, int]):
     """
-    Test the function src.object_detection.object_detection_utils.retrieve_image_width_and_height
+    Test the function src.object_detection_yolov3.object_detection_utils.retrieve_image_width_and_height
 
     Args:
         test_image: Numpy.ndarray image representation
@@ -145,7 +145,7 @@ def test_read_blob_from_image(test_image: np.ndarray,
                               test_configuration: dict,
                               expected_shape: Tuple[int, int, int, int]):
     """
-    Test the function src.object_detection.object_detection_utils.read_blob_from_image
+    Test the function src.object_detection_yolov3.object_detection_utils.read_blob_from_image
 
     Args:
         test_image: Numpy.ndarray image representation
@@ -168,7 +168,7 @@ def test_read_blob_from_image(test_image: np.ndarray,
 def test_retrieve_neural_network_output(test_object_detector: ObjectDetector,
                                         test_blob: np.ndarray):
     """
-    Test the function Test the function src.object_detection.object_detection_utils.retrieve_neural_network_output
+    Test the function Test the function src.object_detection_yolov3.object_detection_utils.retrieve_neural_network_output
 
     Args:
         test_object_detector: ObjectDetector instance
@@ -195,7 +195,7 @@ def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
                                        input_image_height: int,
                                        expected_length: int):
     """
-    Test the function Test the function src.object_detection.object_detection_utils.retrieve_all_detected_classes
+    Test the function Test the function src.object_detection_yolov3.object_detection_utils.retrieve_all_detected_classes
 
     Args:
         test_object_detector: ObjectDetector instance
@@ -232,7 +232,7 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
                                             test_object_detector: ObjectDetector,
                                             expected_class_index: int):
     """
-    Test the function Test the function src.object_detection.object_detection_utils.retrieve_max_confident_class_index
+    Test the function Test the function src.object_detection_yolov3.object_detection_utils.retrieve_max_confident_class_index
 
     Args:
         input_image_path: String image path

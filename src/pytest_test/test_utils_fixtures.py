@@ -7,8 +7,8 @@ import numpy as np
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Modules
-from src.object_detection.object_detection import ObjectDetector
-from src.object_detection.object_detection_utils import read_image_from_source, read_blob_from_image
+from src.object_detection_yolov3.object_detection import ObjectDetector
+from src.object_detection_yolov3.object_detection_utils import read_image_from_source, read_blob_from_image
 from src.utils.utils import read_configuration
 
 

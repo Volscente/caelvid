@@ -9,7 +9,7 @@ os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 # Import Package Modules
 from src.logging_module.logging_module import get_logger
-from src.object_detection.object_detection import ObjectDetector
+from src.object_detection_yolov3.object_detection import ObjectDetector
 from src.utils.utils import read_configuration
 
 # Setup logger
