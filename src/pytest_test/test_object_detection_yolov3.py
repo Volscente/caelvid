@@ -5,6 +5,8 @@ import numpy as np
 
 from typing import Tuple
 
+from fastapi.testclient import TestClient
+
 # Set root path
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 

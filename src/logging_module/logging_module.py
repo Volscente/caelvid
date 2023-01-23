@@ -5,6 +5,7 @@ import os
 import sys
 
 # Set root path
+# TODO: Remove
 os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
 
 
