@@ -7,10 +7,6 @@ import json
 
 from fastapi.testclient import TestClient
 
-# Set root path
-# TODO: Remove
-os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
-
 # Import Package Modules
 from src.object_detection_yolov3.object_detection_rest_api import app
 

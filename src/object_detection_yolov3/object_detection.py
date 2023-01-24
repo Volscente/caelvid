@@ -8,10 +8,6 @@ import numpy as np
 from urllib.request import urlretrieve
 from urllib.error import URLError
 
-# Set root path
-# TODO: Remove
-os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
-
 # Import Package Modules
 from src.logging_module.logging_module import get_logger
 from src.utils.utils import read_configuration

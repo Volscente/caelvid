@@ -3,10 +3,6 @@ import pytest
 import os
 import numpy as np
 
-# Set root path
-# TODO: Remove
-os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
-
 # Import Package Modules
 from src.object_detection_yolov3.object_detection import ObjectDetector
 from src.object_detection_yolov3.object_detection_utils import read_image_from_source, read_blob_from_image
