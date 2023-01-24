@@ -15,9 +15,9 @@ test_client = TestClient(app)
 
 
 @pytest.mark.parametrize('test_file, expected_output', [
-    ('./data/test_images/image_1.jpeg', 'dog'),
-    ('./data/test_images/image_2.png', 'cow'),
-    ('./data/test_images/image_3.png', 'apple'),
+    ('./../../data/test_images/image_1.jpeg', 'dog'),
+    ('./../../data/test_images/image_2.png', 'cow'),
+    ('./../../data/test_images/image_3.png', 'apple'),
 ])
 def test_detect_object(test_file: str,
                        expected_output: str):

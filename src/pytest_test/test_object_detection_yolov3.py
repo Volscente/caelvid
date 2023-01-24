@@ -76,8 +76,8 @@ def test__get_output_layers(test_object_detector: ObjectDetector,
 
 
 @pytest.mark.parametrize('image_source, expected_shape', [
-    ('./data/test_images/image_1.jpeg', (576, 768, 3)),
-    ('./data/test_images/image_2.png', (667, 1000, 3))
+    ('./../../data/test_images/image_1.jpeg', (576, 768, 3)),
+    ('./../../data/test_images/image_2.png', (667, 1000, 3))
 ])
 def test_read_image_from_source(image_source, expected_shape):
     """
@@ -97,7 +97,7 @@ def test_read_image_from_source(image_source, expected_shape):
 
 
 @pytest.mark.parametrize('image_source, expected_exception', [
-    ('./data/test_images/wrong_path_image.jpeg', FileNotFoundError),
+    ('./../../data/test_images/wrong_path_image.jpeg', FileNotFoundError),
     (0, TypeError)
 ])
 def test_read_image_from_source_exceptions(image_source: str | int,
@@ -222,9 +222,9 @@ def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
 
 
 @pytest.mark.parametrize('input_image_path, expected_class_index', [
-    ('./data/test_images/image_1.jpeg', 16),
-    ('./data/test_images/image_2.png', 19),
-    ('./data/test_images/image_3.png', 47),
+    ('./../../data/test_images/image_1.jpeg', 16),
+    ('./../../data/test_images/image_2.png', 19),
+    ('./../../data/test_images/image_3.png', 47),
 ])
 def test_retrieve_max_confident_class_index(input_image_path: str,
                                             test_configuration: dict,
@@ -268,9 +268,9 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
 
 
 @pytest.mark.parametrize('input_image_path, expected_class', [
-    ('./data/test_images/image_1.jpeg', 'dog'),
-    ('./data/test_images/image_2.png', 'cow'),
-    ('./data/test_images/image_3.png', 'apple'),
+    ('./../../data/test_images/image_1.jpeg', 'dog'),
+    ('./../../data/test_images/image_2.png', 'cow'),
+    ('./../../data/test_images/image_3.png', 'apple'),
 ])
 def test_detect_single_object(input_image_path: str,
                               test_object_detector: ObjectDetector,
