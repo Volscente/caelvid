@@ -3,10 +3,13 @@ import pytest
 import os
 import numpy as np
 
+from fastapi.testclient import TestClient
+
 # Import Package Modules
 from src.object_detection_yolov3.object_detection import ObjectDetector
 from src.object_detection_yolov3.object_detection_utils import read_image_from_source, read_blob_from_image
 from src.utils.utils import read_configuration
+from src.object_detection_yolov3.object_detection_rest_api import app
 
 
 @pytest.fixture
@@ -21,7 +24,6 @@ def test_configuration() -> dict:
     return read_configuration('config.yaml')
 
 
-# TODO: extract to test_object_detection_yolov3_fixtures.py
 @pytest.fixture
 def test_object_detector() -> ObjectDetector:
     """
@@ -34,7 +36,6 @@ def test_object_detector() -> ObjectDetector:
     return ObjectDetector()
 
 
-# TODO: extract to test_object_detection_yolov3_fixtures.py
 @pytest.fixture
 def test_image(test_configuration: dict) -> np.ndarray:
     """
@@ -47,7 +48,6 @@ def test_image(test_configuration: dict) -> np.ndarray:
     return read_image_from_source(test_configuration['test_image'])
 
 
-# TODO: extract to test_object_detection_yolov3_fixtures.py
 @pytest.fixture
 def test_blob(test_image: np.ndarray,
               test_configuration: dict) -> np.ndarray:
@@ -67,3 +67,17 @@ def test_blob(test_image: np.ndarray,
                                 test_configuration['blob_scale_factor'],
                                 test_configuration['blob_swap_rb'],
                                 test_configuration['blob_crop'])
+
+
+@pytest.fixture
+def test_client():
+    """
+    Fixture for TestClient instance for the 'app' FastAPI REST API
+
+    Args:
+
+    Returns:
+        TestClient instance
+    """
+
+    return TestClient(app)
