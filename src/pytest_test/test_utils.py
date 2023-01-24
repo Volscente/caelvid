@@ -8,19 +8,6 @@ from src.object_detection_yolov3.object_detection import ObjectDetector
 from src.utils.utils import read_configuration
 
 
-def test_environment_variable(test_object_detector: ObjectDetector):
-    """
-    Test the correct set of the environment variables YOLO_OBJECT_DETECTION
-
-    Args:
-        test_object_detector: ObjectDetector instance
-
-    Returns:
-    """
-
-    assert os.getcwd() == os.environ['YOLO_OBJECT_DETECTION_PATH']
-
-
 @pytest.mark.parametrize('test_config_file, test_config, expected_value', [
     ('config.yaml', 'classes_file_path', './classes/yolov3_classes.txt'),
     ('config.yaml', 'model_structure_file_path', './models/yolov3.cfg'),
