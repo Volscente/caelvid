@@ -3,11 +3,7 @@
 # Caelvid
 Caelvid comes from the latin "Caelum Videre", which means "Look at the Sky". It is a library including several computer vision models
 
-# Object Detection
-
-## Yolo
-
-### Installation
+# Installation
 
 ##### Set up Environment Variables
 Set up an environment variables called `YOLO_OBJECT_DETECTION_PATH` that hosts the path to the `./object_detection/yolo`
