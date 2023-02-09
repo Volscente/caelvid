@@ -133,3 +133,4 @@ dmypy.json
 
 # Model's Specific Files
 models/yolov3.weights
+notebooks/yolov8n.pt
