@@ -5,7 +5,7 @@ Caelvid comes from the latin "Caelum Videre", which means "Look at the Sky". It 
 
 # Installation
 
-##### Set up Environment Variables
+##Set up Environment Variables
 Set up an environment variables called `YOLO_OBJECT_DETECTION_PATH` that hosts the path to the `./object_detection/yolo`
 folder.
 
