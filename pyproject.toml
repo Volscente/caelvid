@@ -5,6 +5,9 @@ description = "It is a library including several computer vision models"
 authors = ["Simone Porreca <porrecasimone@gmail.com>"]
 license = "GPL-3.0-or-later"
 readme = "README.md"
+packages = [
+    {include = "util"}
+]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<=3.11"
