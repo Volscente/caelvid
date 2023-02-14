@@ -5,19 +5,22 @@ Caelvid comes from the latin "Caelum Videre", which means "Look at the Sky". It 
 
 # Installation
 
-##Set up Environment Variables
-Set up an environment variables called `YOLO_OBJECT_DETECTION_PATH` that hosts the path to the `./object_detection/yolo`
-folder.
+## Update PYTHONPATH
+Add the current directory to the `PYTHONPATH` environment variables.
+``` bash
+export PYTHONPATH="$PYTHONPATH:/<absolute_path>/caelvid"
+```
 
-### Running API Service
+
+## Running API Service
 Change directory into `object_detection/yolo` and run the following command:
 ``` bash
 uvicorn packages.rest_api.rest_api:app --reload
 ```
 
-### Docker
+## Docker
 
-#### Build
+### Build
 The Dockerfile is located in the `docker/detect_single_object.Dockerfile` and it is possible to build it through the following command:
 
 ``` bash
