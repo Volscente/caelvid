@@ -15,7 +15,7 @@ export PYTHONPATH="$PYTHONPATH:/<absolute_path>/caelvid"
 ## Running API Service
 Change directory into `object_detection/yolo` and run the following command:
 ``` bash
-uvicorn packages.rest_api.rest_api:app --reload
+uvicorn src.object_detection_yolov3.object_detection_rest_api:app --reload
 ```
 
 ## Docker
