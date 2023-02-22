@@ -6,7 +6,7 @@ authors = ["Simone Porreca <porrecasimone@gmail.com>"]
 license = "GPL-3.0-or-later"
 readme = "README.md"
 packages = [
-    {include = "object_detection_yolov3/object_detection_rest_api", from = 'src'}
+    {include = "object_detection_yolov3", from = 'src'}
 ]
 
 [tool.poetry.dependencies]
