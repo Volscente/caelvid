@@ -1,6 +1,7 @@
 # Import Standard Modules
 import os
 import yaml
+from pathlib import Path
 
 # Import Package Modules
 from src.logging_module.logging_module import get_logger
@@ -27,7 +28,7 @@ def read_configuration(file_name: str) -> dict:
         logger.info('read_configuration - Reading {}'.format(file_name))
 
         # Read configuration file
-        with open('./../../configuration/' + file_name) as config_file:
+        with open(Path(__file__).parent.parent / 'configuration' / file_name) as config_file:
 
             configuration = yaml.safe_load(config_file.read())
 
