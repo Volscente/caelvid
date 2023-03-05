@@ -82,13 +82,14 @@ def test__get_output_layers(test_object_detector: ObjectDetector,
     (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_1.jpeg', (576, 768, 3)),
     (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_2.png', (213, 320, 3))
 ])
-def test_read_image_from_source(image_source, expected_shape):
+def test_read_image_from_source(image_source: pathlib.PosixPath,
+                                expected_shape: Tuple[int, int, int]):
     """
     Test the function src.object_detection_yolov3.object_detection_utils.read_image_from_source
 
     Args:
-        image_source: Path image path from local File System | Numpy.ndarray image representation
-        expected_shape: Tuple[int, int] expected read image shape
+        image_source:pathlib.PosixPath object image path
+        expected_shape: Tuple[int, int, int] expected read image shape
 
     Returns:
     """
@@ -103,13 +104,13 @@ def test_read_image_from_source(image_source, expected_shape):
     (Path(__file__).parents[2] / 'data' / 'test_images' / 'wrong_image.jpeg', FileNotFoundError),
     (0, TypeError)
 ])
-def test_read_image_from_source_exceptions(image_source: str | int,
+def test_read_image_from_source_exceptions(image_source: str | int | pathlib.PosixPath,
                                            expected_exception: Exception):
     """
     Test exception triggers for the function src.object_detection_yolov3.object_detection_utils.read_image_from_source
 
     Args:
-        image_source: Path wrong image path | Integer wrong image representation
+        image_source: pathlib.PosixPath wrong image path object
         expected_exception: Exception expected exception
 
     Returns:
@@ -123,7 +124,7 @@ def test_read_image_from_source_exceptions(image_source: str | int,
     (768, 576, 3)
 ])
 def test_retrieve_image_width_and_height(test_image: np.ndarray,
-                                         expected_dimension: Tuple[int, int]):
+                                         expected_dimension: Tuple[int, int, int]):
     """
     Test the function src.object_detection_yolov3.object_detection_utils.retrieve_image_width_and_height
 
@@ -229,7 +230,7 @@ def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
     (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_2.png', 19),
     (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_3.png', 47),
 ])
-def test_retrieve_max_confident_class_index(input_image_path: pathlib.Path,
+def test_retrieve_max_confident_class_index(input_image_path: pathlib.PosixPath,
                                             test_configuration: dict,
                                             test_object_detector: ObjectDetector,
                                             expected_class_index: int):
@@ -237,7 +238,7 @@ def test_retrieve_max_confident_class_index(input_image_path: pathlib.Path,
     Test the function Test the function src.object_detection_yolov3.object_detection_utils.retrieve_max_confident_class_index
 
     Args:
-        input_image_path: pathlib.Path image path
+        input_image_path: pathlib.PosixPath object image path
         test_configuration: Dictionary configuration object
         test_object_detector: ObjectDetector instance
         expected_class_index: Integer max confident class index
@@ -275,14 +276,14 @@ def test_retrieve_max_confident_class_index(input_image_path: pathlib.Path,
     (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_2.png', 'cow'),
     (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_3.png', 'apple'),
 ])
-def test_detect_single_object(input_image_path: pathlib.Path,
+def test_detect_single_object(input_image_path: pathlib.PosixPath,
                               test_object_detector: ObjectDetector,
                               expected_class: str):
     """
     Test the method 'detect_single_object' from the ObjectDetector class
 
     Args:
-        input_image_path: pathlib.Path image path
+        input_image_path: pathlib.PosixPath object image path
         test_object_detector: ObjectDetector instance object
         expected_class: String expected detected class
 
@@ -309,7 +310,7 @@ def test_detect_object(test_client: TestClient,
 
     Args:
         test_client: TestClient instance for testing a FastAPI REST API
-        test_file: pathlib.Path test file path
+        test_file: pathlib.Path image object path
         expected_output: String expected detected class
 
     Returns:

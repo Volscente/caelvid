@@ -38,7 +38,6 @@ def read_image_from_source(image_source: str | np.ndarray | pathlib.PosixPath) -
         if os.path.isfile(image_source):
 
             # Switch between String and pathlib.PosixPath
-
             if type(image_source) == str:
 
                 # Read image from local file through String path

@@ -1,5 +1,7 @@
 # Import Standard Libraries
 import os
+import pathlib
+
 import cv2
 import sys
 from typing import List
@@ -229,12 +231,12 @@ class ObjectDetector:
         return output_layers
 
     def detect_single_object(self,
-                             image_source: str | np.ndarray) -> str:
+                             image_source: str | np.ndarray | pathlib.PosixPath) -> str:
         """
         Detect the class of the input image
 
         Args:
-            image_source: String image path from local File System | Numpy.ndarray image representation
+            image_source: String image path from local File System | Numpy.ndarray image representation | pathlib.PosixPath object
 
         Returns:
             detected_class: String detected class name
@@ -244,7 +246,7 @@ class ObjectDetector:
 
         self.logger.info('detect_single_object - Reading the image from the source')
 
-        # Read the image from a local file path or from a Numpy.ndarray image representation
+        # Read the image from a local file path (String or pathlib.PosixPath) or from a Numpy.ndarray image representation
         image = read_image_from_source(image_source)
 
         # Retrieve image dimensions
