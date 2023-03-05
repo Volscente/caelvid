@@ -3,6 +3,8 @@ import os
 import cv2
 import sys
 from typing import List
+from typing import Tuple
+from pathlib import Path
 import numpy as np
 
 from urllib.request import urlretrieve
@@ -66,12 +68,12 @@ class ObjectDetector:
         self.output_layers = self.__get_output_layers()
 
     def __read_classes(self,
-                       classes_file_path: str) -> List[str]:
+                       classes_file_path: Tuple[str]) -> List[str]:
         """
         Read the 'yolov3_classes.txt' file and retrieve the list of available classes
 
         Args:
-            classes_file_path: String classes file path
+            classes_file_path: Tuple[String] classes file path
 
         Returns:
             classes: List of String classes
@@ -81,20 +83,23 @@ class ObjectDetector:
 
         try:
 
-            self.logger.info('__read_classes - Reading file {}'.format(classes_file_path))
+            # Construct the Path object from 'classes_file_path'
+            classes_file_path_pathlib = Path(__file__).parents[2] / classes_file_path[0] / classes_file_path[1]
+
+            self.logger.info('__read_classes - Reading file {}'.format(classes_file_path_pathlib))
 
             # Open the classes file and extract the list of available classes
-            with open(classes_file_path, 'r') as classes_file:
+            with open(classes_file_path_pathlib, 'r') as classes_file:
 
                 classes = [line.strip() for line in classes_file.readlines()]
 
         except FileNotFoundError:
 
-            raise FileNotFoundError('__read_classes - File {} not found'.format(classes_file_path))
+            raise FileNotFoundError('__read_classes - File {} not found'.format(classes_file_path_pathlib))
 
         else:
 
-            self.logger.info('__read_classes - Classes file {} read successfully'.format(classes_file_path))
+            self.logger.info('__read_classes - Classes file {} read successfully'.format(classes_file_path_pathlib))
 
         self.classes = classes
 
