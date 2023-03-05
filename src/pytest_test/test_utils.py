@@ -33,6 +33,7 @@ def test_read_configuration(test_config_file: str,
 
     assert config[test_config][0] == expected_value[0] and config[test_config][1] == expected_value[1]
 
+
 @pytest.mark.parametrize('test_config_file, expected_error', [
     ('wrong_config.config', FileNotFoundError)
 ])
