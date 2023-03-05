@@ -28,7 +28,7 @@ def read_configuration(file_name: str) -> dict:
         logger.info('read_configuration - Reading {}'.format(file_name))
 
         # Read configuration file
-        with open(Path(__file__).parent.parent / 'configuration' / file_name) as config_file:
+        with open(Path(__file__).parents[2] / 'configuration' / file_name) as config_file:
 
             configuration = yaml.safe_load(config_file.read())
 
