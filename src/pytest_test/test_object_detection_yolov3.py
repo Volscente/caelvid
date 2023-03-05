@@ -1,8 +1,11 @@
 # Import Standard Modules
 import os
+import pathlib
+
 import pytest
 import numpy as np
 import json
+from pathlib import Path
 
 from typing import Tuple
 
@@ -77,15 +80,15 @@ def test__get_output_layers(test_object_detector: ObjectDetector,
 
 
 @pytest.mark.parametrize('image_source, expected_shape', [
-    ('./../../data/test_images/image_1.jpeg', (576, 768, 3)),
-    ('./../../data/test_images/image_2.png', (213, 320, 3))
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_1.jpeg', (576, 768, 3)),
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_2.png', (213, 320, 3))
 ])
 def test_read_image_from_source(image_source, expected_shape):
     """
     Test the function src.object_detection_yolov3.object_detection_utils.read_image_from_source
 
     Args:
-        image_source: String image path from local File System | Numpy.ndarray image representation
+        image_source: Path image path from local File System | Numpy.ndarray image representation
         expected_shape: Tuple[int, int] expected read image shape
 
     Returns:
@@ -98,7 +101,7 @@ def test_read_image_from_source(image_source, expected_shape):
 
 
 @pytest.mark.parametrize('image_source, expected_exception', [
-    ('./../../data/test_images/wrong_path_image.jpeg', FileNotFoundError),
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'wrong_image.jpeg', FileNotFoundError),
     (0, TypeError)
 ])
 def test_read_image_from_source_exceptions(image_source: str | int,
@@ -107,7 +110,7 @@ def test_read_image_from_source_exceptions(image_source: str | int,
     Test exception triggers for the function src.object_detection_yolov3.object_detection_utils.read_image_from_source
 
     Args:
-        image_source: String wrong image path | Integer wrong image representation
+        image_source: Path wrong image path | Integer wrong image representation
         expected_exception: Exception expected exception
 
     Returns:
@@ -223,11 +226,11 @@ def test_retrieve_all_detected_classes(test_object_detector: ObjectDetector,
 
 
 @pytest.mark.parametrize('input_image_path, expected_class_index', [
-    ('./../../data/test_images/image_1.jpeg', 16),
-    ('./../../data/test_images/image_2.png', 19),
-    ('./../../data/test_images/image_3.png', 47),
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_1.jpeg', 16),
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_2.png', 19),
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_3.png', 47),
 ])
-def test_retrieve_max_confident_class_index(input_image_path: str,
+def test_retrieve_max_confident_class_index(input_image_path: pathlib.Path,
                                             test_configuration: dict,
                                             test_object_detector: ObjectDetector,
                                             expected_class_index: int):
@@ -235,7 +238,7 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
     Test the function Test the function src.object_detection_yolov3.object_detection_utils.retrieve_max_confident_class_index
 
     Args:
-        input_image_path: String image path
+        input_image_path: pathlib.Path image path
         test_configuration: Dictionary configuration object
         test_object_detector: ObjectDetector instance
         expected_class_index: Integer max confident class index
@@ -269,18 +272,18 @@ def test_retrieve_max_confident_class_index(input_image_path: str,
 
 
 @pytest.mark.parametrize('input_image_path, expected_class', [
-    ('./../../data/test_images/image_1.jpeg', 'dog'),
-    ('./../../data/test_images/image_2.png', 'cow'),
-    ('./../../data/test_images/image_3.png', 'apple'),
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_1.jpeg', 'dog'),
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_2.png', 'cow'),
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_3.png', 'apple'),
 ])
-def test_detect_single_object(input_image_path: str,
+def test_detect_single_object(input_image_path: pathlib.Path,
                               test_object_detector: ObjectDetector,
                               expected_class: str):
     """
     Test the method 'detect_single_object' from the ObjectDetector class
 
     Args:
-        input_image_path: String image path
+        input_image_path: pathlib.Path image path
         test_object_detector: ObjectDetector instance object
         expected_class: String expected detected class
 
@@ -294,12 +297,12 @@ def test_detect_single_object(input_image_path: str,
 
 
 @pytest.mark.parametrize('test_file, expected_output', [
-    ('./../../data/test_images/image_1.jpeg', 'dog'),
-    ('./../../data/test_images/image_2.png', 'cow'),
-    ('./../../data/test_images/image_3.png', 'apple'),
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_1.jpeg', 'dog'),
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_2.png', 'cow'),
+    (Path(__file__).parents[2] / 'data' / 'test_images' / 'image_3.png', 'apple'),
 ])
 def test_detect_object(test_client: TestClient,
-                       test_file: str,
+                       test_file: pathlib.Path,
                        expected_output: str):
 
     """
@@ -307,7 +310,7 @@ def test_detect_object(test_client: TestClient,
 
     Args:
         test_client: TestClient instance for testing a FastAPI REST API
-        test_file: String test file path
+        test_file: pathlib.Path test file path
         expected_output: String expected detected class
 
     Returns:

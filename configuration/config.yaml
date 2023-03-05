@@ -2,8 +2,7 @@
 classes_file_path: ['classes', 'yolov3_classes.txt']
 model_weights_file_path: ['models', 'yolov3.weights']
 model_structure_file_path: ['models', 'yolov3.cfg']
-test_data_path: './../../data/test_images/'
-test_image: './../../data/test_images/image_1.jpeg'
+test_image: ['data', 'test_images', 'image_1.jpeg']
 
 # URLs
 nn_weights_url: 'https://pjreddie.com/media/files/yolov3.weights'

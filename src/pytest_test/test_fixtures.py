@@ -2,6 +2,7 @@
 import pytest
 import os
 import numpy as np
+from pathlib import Path
 
 from fastapi.testclient import TestClient
 
@@ -45,7 +46,10 @@ def test_image(test_configuration: dict) -> np.ndarray:
         Numpy.ndarray Open CV image representation
     """
 
-    return read_image_from_source(test_configuration['test_image'])
+    return read_image_from_source(Path(__file__).parents[2] /
+                                  test_configuration['test_image'][0] /
+                                  test_configuration['test_image'][1] /
+                                  test_configuration['test_image'][2])
 
 
 @pytest.fixture

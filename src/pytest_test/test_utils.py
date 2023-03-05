@@ -1,6 +1,7 @@
 # Import Standard Modules
 import os
 import pytest
+from typing import List
 
 # Import Package Modules
 from src.pytest_test.test_fixtures import test_object_detector
@@ -9,14 +10,13 @@ from src.utils.utils import read_configuration
 
 
 @pytest.mark.parametrize('test_config_file, test_config, expected_value', [
-    ('config.yaml', 'classes_file_path', './../../classes/yolov3_classes.txt'),
-    ('config.yaml', 'model_structure_file_path', './../../models/yolov3.cfg'),
-    ('config.yaml', 'model_weights_file_path', './../../models/yolov3.weights'),
-    ('config.yaml', 'test_data_path', './../../data/test_images/')
+    ('config.yaml', 'classes_file_path', ['classes', 'yolov3_classes.txt']),
+    ('config.yaml', 'model_structure_file_path', ['models', 'yolov3.cfg']),
+    ('config.yaml', 'model_weights_file_path', ['models', 'yolov3.weights'])
 ])
 def test_read_configuration(test_config_file: str,
                             test_config: str,
-                            expected_value: str):
+                            expected_value: List[str]):
     """
     Test the function src.utils.utils.read_configuration
 
@@ -31,8 +31,7 @@ def test_read_configuration(test_config_file: str,
     # Read configuration file
     config = read_configuration(test_config_file)
 
-    assert config[test_config] == expected_value
-
+    assert config[test_config][0] == expected_value[0] and config[test_config][1] == expected_value[1]
 
 @pytest.mark.parametrize('test_config_file, expected_error', [
     ('wrong_config.config', FileNotFoundError)
