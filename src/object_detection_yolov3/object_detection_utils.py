@@ -3,6 +3,7 @@ import os
 import sys
 import cv2
 from typing import Tuple, List
+import pathlib
 from pathlib import Path
 import numpy as np
 
@@ -53,7 +54,7 @@ def read_image_from_source(image_source: str | np.ndarray | pathlib.Path) -> np.
 
     else:
 
-        raise TypeError('read_image_from_source - Image source type must be String or Numpy.ndarray')
+        raise TypeError('read_image_from_source - Image source type must be String, Numpy.ndarray or pathlib.Path')
 
     logger.info('read_image_from_source - Successfully read image from the source')
 
