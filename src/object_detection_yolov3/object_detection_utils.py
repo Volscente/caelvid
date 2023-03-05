@@ -3,6 +3,7 @@ import os
 import sys
 import cv2
 from typing import Tuple, List
+from pathlib import Path
 import numpy as np
 
 # Import Package Modules
@@ -12,12 +13,12 @@ from src.logging_module.logging_module import get_logger
 logger = get_logger(os.path.basename(__file__).split('.')[0])
 
 
-def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
+def read_image_from_source(image_source: str | np.ndarray | pathlib.Path) -> np.ndarray:
     """
     Read the image with Open CV from the 'image_source'
 
     Args:
-        image_source: String image path from local File System | Numpy.ndarray image representation
+        image_source: String image path from local File System | Numpy.ndarray image representation | pathlib.Path object
 
     Returns:
         image: Numpy.ndarray OpenCV read image
@@ -28,7 +29,7 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
     logger.info('read_image_from_source - Reading image from source')
 
     # Switch between reading from local file or from Numpy.ndarray image representation
-    if type(image_source) == str:
+    if type(image_source) == str or type(image_source) == pathlib.Path:
 
         # Check if the image file is in the FS
         if os.path.isfile(image_source):
@@ -52,7 +53,7 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
 
     else:
 
-        raise TypeError('read_image_from_source - Image source type muse be String or Numpy.ndarray')
+        raise TypeError('read_image_from_source - Image source type must be String or Numpy.ndarray')
 
     logger.info('read_image_from_source - Successfully read image from the source')
 
