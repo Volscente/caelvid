@@ -83,6 +83,8 @@ class ObjectDetector:
 
         try:
 
+            self.logger.info('__read_classes - Constructing the Classes Filepath')
+
             # Construct the Path object from 'classes_file_path'
             classes_file_path_pathlib = Path(__file__).parents[2] / classes_file_path[0] / classes_file_path[1]
 
@@ -107,16 +109,16 @@ class ObjectDetector:
 
     def __read_neural_network(self,
                               nn_weights_url: str,
-                              model_weights_file_path: str,
-                              model_structure_file_path: str) -> cv2.dnn.Net:
+                              model_weights_file_path: Tuple[str],
+                              model_structure_file_path: Tuple[str]) -> cv2.dnn.Net:
         """
         Read YOLO v3 DarkNet trained neural network from the 'yolov3.weights' and 'yolov3.cfg' files.
         Download the 'yolov3.weights' file if not present
 
         Args:
             nn_weights_url: String URL for 'yolov3.weights'
-            model_weights_file_path: String path for 'yolov3.weights'
-            model_structure_file_path: String path for 'yolov3.cfg'
+            model_weights_file_path: Tuple[String] path for 'yolov3.weights'
+            model_structure_file_path: Tuple[String] path for 'yolov3.cfg'
 
         Returns:
             neural_network: cv2.dnn.Net Trained Neural Network
@@ -127,24 +129,33 @@ class ObjectDetector:
         # Retrieve yolov3.weights if not present
         try:
 
+            self.logger.info('__read_neural_network - Constructing the Model Weights Filepath')
+
+            # Construct the Path object from 'model_weights_file_path'
+            model_weights_file_path_pathlib = Path(__file__).parents[2] / model_weights_file_path[0] / \
+                model_weights_file_path[1]
+
             self.logger.info(
-                '__read_neural_network - Checking if the file {} is already downloaded'.format(model_weights_file_path))
+                '__read_neural_network - Checking if the file {} is already downloaded'.format(
+                    model_weights_file_path_pathlib))
 
             # Check whatever the 'yolov3.weights' file is not present and download it
-            if not os.path.isfile(model_weights_file_path):
+            if not os.path.isfile(model_weights_file_path_pathlib):
 
                 # Download 'yolov3.weights'
-                urlretrieve(nn_weights_url, model_weights_file_path)
+                urlretrieve(nn_weights_url, model_weights_file_path_pathlib)
 
-                self.logger.info('__read_neural_network - File {} download completed'.format(model_weights_file_path))
+                self.logger.info(
+                    '__read_neural_network - File {} download completed'.format(model_weights_file_path_pathlib))
 
             else:
 
-                self.logger.info('__read_neural_network - File {} already downloaded'.format(model_weights_file_path))
+                self.logger.info(
+                    '__read_neural_network - File {} already downloaded'.format(model_weights_file_path_pathlib))
 
         except FileNotFoundError as e:
 
-            raise FileNotFoundError('__read_neural_network - File {} not found'.format(model_weights_file_path))
+            raise FileNotFoundError('__read_neural_network - File {} not found'.format(model_weights_file_path_pathlib))
 
         except URLError:
 
@@ -152,15 +163,23 @@ class ObjectDetector:
 
         else:
 
-            self.logger.info('__read_neural_network - File {} is in the File System'.format(model_weights_file_path))
+            self.logger.info(
+                '__read_neural_network - File {} is in the File System'.format(model_weights_file_path_pathlib))
 
         self.logger.info('__read_neural_network - Instancing Neural Network')
 
-        # Read pr-trained model and configuration file if the required files are available
-        if os.path.isfile(model_weights_file_path) and os.path.isfile(model_structure_file_path):
+        self.logger.info('__read_neural_network - Constructing the Model Structure Filepath')
+
+        # Construct the Path object from 'model_weights_file_path'
+        model_structure_file_path_pathlib = Path(__file__).parents[2] / model_structure_file_path[0] / \
+            model_structure_file_path[1]
+
+        # Read pre-trained model and configuration file if the required files are available
+        if os.path.isfile(model_weights_file_path_pathlib) and os.path.isfile(model_structure_file_path_pathlib):
 
             # Define the Neural Network
-            neural_network = cv2.dnn.readNetFromDarknet(model_structure_file_path, model_weights_file_path)
+            neural_network = cv2.dnn.readNetFromDarknet(model_structure_file_path_pathlib.as_posix(),
+                                                        model_weights_file_path_pathlib.as_posix())
 
             # Set the Neural Network computation backend
             neural_network.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
