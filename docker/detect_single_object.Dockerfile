@@ -6,3 +6,4 @@ RUN apt update -y \
     && apt upgrade -y
 
 # Install curl
+RUN apt install curl -y
