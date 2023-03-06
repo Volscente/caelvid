@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "caelvid"
-version = "0.1.0a1"
+version = "0.1.0a2"
 description = "It is a library including several computer vision models"
 authors = ["Simone Porreca <porrecasimone@gmail.com>"]
 license = "GPL-3.0-or-later"
