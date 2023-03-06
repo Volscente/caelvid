@@ -4,7 +4,7 @@ import pytest
 from typing import List
 
 # Import Package Modules
-from src.pytest_test.test_fixtures import test_object_detector
+from src.test.test_fixtures import test_object_detector
 from src.object_detection_yolov3.object_detection import ObjectDetector
 from src.utils.utils import read_configuration
 

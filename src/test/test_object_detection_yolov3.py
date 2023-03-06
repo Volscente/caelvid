@@ -11,7 +11,7 @@ from typing import Tuple
 from fastapi.testclient import TestClient
 
 # Import Package Modules
-from src.pytest_test.test_fixtures import test_object_detector, test_configuration, test_image, test_blob, test_client
+from src.test.test_fixtures import test_object_detector, test_configuration, test_image, test_blob, test_client
 from src.object_detection_yolov3.object_detection import ObjectDetector
 from src.object_detection_yolov3.object_detection_utils import read_image_from_source, retrieve_image_width_and_height, \
     read_blob_from_image, retrieve_neural_network_output, retrieve_all_detected_classes, \
