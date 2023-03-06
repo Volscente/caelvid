@@ -7,3 +7,7 @@ RUN apt update -y \
 
 # Install curl
 RUN apt install curl -y
+
+# Install required libraries for GCC
+RUN apt install build-essential -y \
+    && apt install manpages-dev -y
