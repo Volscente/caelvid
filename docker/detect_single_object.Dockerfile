@@ -14,6 +14,6 @@ RUN apt install build-essential -y \
     && apt install libffi-dev
 
 # Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 -
+#RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # Add `export PATH="/root/.local/bin:$PATH"` to your shell configuration file.
