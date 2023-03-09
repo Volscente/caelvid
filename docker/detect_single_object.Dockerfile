@@ -1,5 +1,5 @@
 # Base Image
-FROM python:3.12.0a3-slim-bullseye
+FROM python:3
 
 # Update & Upgrade
 RUN apt update -y \
