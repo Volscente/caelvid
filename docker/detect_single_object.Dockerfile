@@ -5,13 +5,6 @@ FROM python:3
 RUN apt update -y \
     && apt upgrade -y
 
-# Install curl
-RUN apt install curl -y
-
-# Install required libraries for GCC
-RUN apt install build-essential -y \
-    && apt install manpages-dev -y \
-    && apt install libffi-dev
-
 # Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 -
+#RUN curl -sSL https://install.python-poetry.org | python3 -
+# Check: https://stackoverflow.com/questions/53835198/integrating-python-poetry-with-docker
