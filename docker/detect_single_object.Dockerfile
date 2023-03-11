@@ -12,5 +12,5 @@ ENV ENVIRONMENT=${ENVIRONMENT} \
     PYTHONUNBUFFERED=1 \
     # Set a random value for the hash seed secret
     PYTHONHASHSEED=random \
-    # 
+    # Do not store any pip installation in the cache
     PIP_NO_CACHE_DIR=off \
