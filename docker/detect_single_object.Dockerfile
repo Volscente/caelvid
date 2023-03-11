@@ -16,3 +16,5 @@ ENV ENVIRONMENT=${ENVIRONMENT} \
     PIP_NO_CACHE_DIR=off \
     # Do not check for pip version
     PIP_DISABLE_PIP_VERSION_CHECK=on \
+    # Pip command timeout
+    PIP_DEFAULT_TIMEOUT=100 \
