@@ -20,3 +20,6 @@ ENV ENVIRONMENT=${ENVIRONMENT} \
     PIP_DEFAULT_TIMEOUT=100 \
     # Specify Poetry version
     POETRY_VERSION=1.3.2
+
+# Install Poetry
+RUN pip install "poetry==$POETRY_VERSION"
