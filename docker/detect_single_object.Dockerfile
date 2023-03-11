@@ -18,3 +18,5 @@ ENV ENVIRONMENT=${ENVIRONMENT} \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     # Pip command timeout
     PIP_DEFAULT_TIMEOUT=100 \
+    # Specify Poetry version
+    POETRY_VERSION=1.3.2
