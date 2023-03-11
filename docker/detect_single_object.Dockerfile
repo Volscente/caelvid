@@ -14,3 +14,5 @@ ENV ENVIRONMENT=${ENVIRONMENT} \
     PYTHONHASHSEED=random \
     # Do not store any pip installation in the cache
     PIP_NO_CACHE_DIR=off \
+    # Do not check for pip version
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
