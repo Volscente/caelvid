@@ -4,7 +4,7 @@ FROM python:3
 # Accept ENVIRONMENT argument for distinguishing between 'production' and 'test'
 ARG ENVIRONMENT
 
-# Set Environment Variables
+# Set Environment Variables
 ENV ENVIRONMENT=${ENVIRONMENT} \ 
     # Enable the Python Fault Handler to dump Python tracebacks
     PYTHONFAULTHANDLER=1 \
@@ -23,3 +23,9 @@ ENV ENVIRONMENT=${ENVIRONMENT} \
 
 # Install Poetry
 RUN pip install "poetry==$POETRY_VERSION"
+
+# Change working directory
+WORKDIR /detect_single_object
+
+# Copy required poetry files into the container
+COPY ./../poetry.lock ./../pyproject.toml /detect_single_object/
