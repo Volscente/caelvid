@@ -28,4 +28,4 @@ RUN pip install "poetry==$POETRY_VERSION"
 WORKDIR /detect_single_object
 
 # Copy required poetry files into the container
-COPY ./../poetry.lock ./../pyproject.toml /detect_single_object/
+COPY poetry.lock pyproject.toml /detect_single_object/
