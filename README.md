@@ -24,5 +24,6 @@ uvicorn src.object_detection_yolov3.object_detection_rest_api:app --reload
 The Dockerfile is located in the `docker/detect_single_object.Dockerfile` and it is possible to build it through the following command:
 
 ``` bash
-docker image build -t <repository>/<image_name>:<tag> -f detect_single_object.Dockerfile .
+# Change directory to parent one
+docker image build --progress=plain -f ./docker/detect_single_object.Dockerfile -t <repository>/<image_name>:<tag> . 
 ```
