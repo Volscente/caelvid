@@ -29,3 +29,6 @@ WORKDIR /detect_single_object
 
 # Copy required poetry files into the container
 COPY poetry.lock pyproject.toml /detect_single_object/
+
+# Disable venv automatic creation
+RUN poetry config virtualenvs.create false
