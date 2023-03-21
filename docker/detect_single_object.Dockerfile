@@ -1,5 +1,5 @@
 # Base Image
-FROM python:3
+FROM python:3.10.5
 
 # Accept ENVIRONMENT argument for distinguishing between 'production' and 'test'
 ARG ENVIRONMENT
