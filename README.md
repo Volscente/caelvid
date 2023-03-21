@@ -25,5 +25,5 @@ The Dockerfile is located in the `docker/detect_single_object.Dockerfile` and it
 
 ``` bash
 # Change directory to parent one
-docker image build --progress=plain -f ./docker/detect_single_object.Dockerfile -t <repository>/<image_name>:<tag> . 
+docker image build --progress=plain --build-arg ENVIRONMENT=production -f ./docker/detect_single_object.Dockerfile -t <repository>/<image_name>:<tag> . 
 ```
