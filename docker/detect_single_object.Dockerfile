@@ -32,3 +32,6 @@ COPY poetry.lock pyproject.toml /detect_single_object/
 
 # Disable venv automatic creation
 RUN poetry config virtualenvs.create false
+
+# Install libraries with Poetry
+RUN poetry install $(test "$YOUR_ENV" == production && echo "--no-dev") --no-interaction --no-ansi
