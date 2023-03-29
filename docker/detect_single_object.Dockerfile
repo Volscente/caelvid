@@ -33,6 +33,7 @@ COPY poetry.lock pyproject.toml /detect_single_object/
 # Disable venv automatic creation
 RUN poetry config virtualenvs.create false
 
-# Install libraries with Poetry
-RUN if [ "${ENVIRONMENT}" = "production" ]; then poetry install --without dev --no-interaction --no-ansi; \
-    else poetry install --no-interaction --no-ansi; fi
+# Install libraries with Poetry
+# TODO: Increase Colima memory
+# RUN if [ "${ENVIRONMENT}" = "production" ]; then poetry install --without dev --no-interaction --no-ansi; \
+#    else poetry install --no-interaction --no-ansi; fi
