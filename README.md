@@ -20,6 +20,12 @@ uvicorn src.object_detection_yolov3.object_detection_rest_api:app --reload
 
 ## Docker
 
+### Requirements
+I recommend starting Colima/Docker Engine with:
+- 4 CPUs
+- 4 Gb RAM
+- 100 Gb Disk
+
 ### Build
 The Dockerfile is located in the `docker/detect_single_object.Dockerfile` and it is possible to build it through the following command:
 
