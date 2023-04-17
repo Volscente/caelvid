@@ -31,7 +31,7 @@ WORKDIR /detect_single_object
 COPY poetry.lock pyproject.toml /detect_single_object/
 
 # Disable venv automatic creation
-RUN poetry config virtualenvs.create false
+#RUN poetry config virtualenvs.create false
 
 # Install libraries with Poetry
 RUN if [ "${ENVIRONMENT}" = "production" ]; then poetry install --without dev --no-interaction --no-ansi; \
