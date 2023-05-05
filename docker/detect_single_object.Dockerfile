@@ -24,6 +24,9 @@ ENV ENVIRONMENT=${ENVIRONMENT} \
 # Install Poetry
 RUN pip install "poetry==$POETRY_VERSION"
 
+# Install OpenCV required libraries
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+
 # Change working directory
 WORKDIR /detect_single_object
 
@@ -35,3 +38,5 @@ COPY . /detect_single_object
 
 # Install dependencies
 RUN poetry install --without dev --no-interaction --no-ansi
+
+ poetry run uvicorn src.object_detection_yolov3.object_detection_rest_api:app --reload
