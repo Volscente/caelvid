@@ -39,4 +39,4 @@ COPY . /detect_single_object
 # Install dependencies
 RUN poetry install --without dev --no-interaction --no-ansi
 
- poetry run uvicorn src.object_detection_yolov3.object_detection_rest_api:app --reload
+CMD ["poetry", "run", "uvicorn", "src.object_detection_yolov3.object_detection_rest_api:app", "--reload"]
