@@ -37,7 +37,7 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Unit test / coverage reports
+# Unit tests / coverage reports
 htmlcov/
 .tox/
 .nox/
@@ -125,13 +125,12 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-# Pyre type checker
-.pyre/
-.idea/computer_vision.iml
-.idea/inspectionProfiles/profiles_settings.xml
-.idea/inspectionProfiles/Project_Default.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-object_detection/yolo/models/yolov3.weights
-.idea/workspace.xml
+# IntelliJ Files
+.idea
+
+# MacOS Files
+.DS_STORE
+
+# Model's Specific Files
+models/yolov3.weights
+notebooks/yolov8n.pt

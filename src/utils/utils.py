@@ -1,12 +1,10 @@
 # Import Standard Modules
 import os
 import yaml
-
-# Set root path
-os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
+from pathlib import Path
 
 # Import Package Modules
-from packages.logging_module.logging_module import get_logger
+from src.logging_module.logging_module import get_logger
 
 # Setup logger
 logger = get_logger(os.path.basename(__file__).split('.')[0])
@@ -30,7 +28,7 @@ def read_configuration(file_name: str) -> dict:
         logger.info('read_configuration - Reading {}'.format(file_name))
 
         # Read configuration file
-        with open('./configuration/' + file_name) as config_file:
+        with open(Path(__file__).parents[2] / 'configuration' / file_name) as config_file:
 
             configuration = yaml.safe_load(config_file.read())
 

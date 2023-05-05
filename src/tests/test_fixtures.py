@@ -2,14 +2,15 @@
 import pytest
 import os
 import numpy as np
+from pathlib import Path
 
-# Set root path
-os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
+from fastapi.testclient import TestClient
 
 # Import Package Modules
-from packages.object_detection.object_detection import ObjectDetector
-from packages.object_detection.object_detection_utils import read_image_from_source, read_blob_from_image
-from packages.utils.utils import read_configuration
+from src.object_detection_yolov3.object_detection import ObjectDetector
+from src.object_detection_yolov3.object_detection_utils import read_image_from_source, read_blob_from_image
+from src.utils.utils import read_configuration
+from src.object_detection_yolov3.object_detection_rest_api import app
 
 
 @pytest.fixture
@@ -45,7 +46,10 @@ def test_image(test_configuration: dict) -> np.ndarray:
         Numpy.ndarray Open CV image representation
     """
 
-    return read_image_from_source(test_configuration['test_image'])
+    return read_image_from_source(Path(__file__).parents[2] /
+                                  test_configuration['test_image'][0] /
+                                  test_configuration['test_image'][1] /
+                                  test_configuration['test_image'][2])
 
 
 @pytest.fixture
@@ -67,3 +71,17 @@ def test_blob(test_image: np.ndarray,
                                 test_configuration['blob_scale_factor'],
                                 test_configuration['blob_swap_rb'],
                                 test_configuration['blob_crop'])
+
+
+@pytest.fixture
+def test_client():
+    """
+    Fixture for TestClient instance for the 'app' FastAPI REST API
+
+    Args:
+
+    Returns:
+        TestClient instance
+    """
+
+    return TestClient(app)

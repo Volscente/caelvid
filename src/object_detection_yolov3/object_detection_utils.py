@@ -1,29 +1,25 @@
 # Import Standard Libraries
 import os
 import sys
-
 import cv2
-
 from typing import Tuple, List
-
-# Set root path
+import pathlib
+from pathlib import Path
 import numpy as np
 
-os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
-
 # Import Package Modules
-from packages.logging_module.logging_module import get_logger
+from src.logging_module.logging_module import get_logger
 
 # Setup logger
 logger = get_logger(os.path.basename(__file__).split('.')[0])
 
 
-def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
+def read_image_from_source(image_source: str | np.ndarray | pathlib.PosixPath) -> np.ndarray:
     """
     Read the image with Open CV from the 'image_source'
 
     Args:
-        image_source: String image path from local File System | Numpy.ndarray image representation
+        image_source: String image path from local File System | Numpy.ndarray image representation | pathlib.PosixPath object
 
     Returns:
         image: Numpy.ndarray OpenCV read image
@@ -33,14 +29,24 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
 
     logger.info('read_image_from_source - Reading image from source')
 
-    # Switch between reading from local file or from Numpy.ndarray image representation
-    if type(image_source) == str:
+    logger.info('read_image_from_source - Type of source: {}'.format(str(type(image_source))))
+
+    # Switch between reading from local file (str or pathlib.PosixPath or from Numpy.ndarray image representation
+    if type(image_source) == str or type(image_source) == pathlib.PosixPath:
 
         # Check if the image file is in the FS
         if os.path.isfile(image_source):
 
-            # Read image from local file
-            image = cv2.imread(image_source)
+            # Switch between String and pathlib.PosixPath
+            if type(image_source) == str:
+
+                # Read image from local file through String path
+                image = cv2.imread(image_source)
+
+            else:
+
+                # Read image from local file through pathlib.PosixPath path
+                image = cv2.imread(image_source.as_posix())
 
         else:
 
@@ -58,7 +64,7 @@ def read_image_from_source(image_source: str | np.ndarray) -> np.ndarray:
 
     else:
 
-        raise TypeError('read_image_from_source - Image source type muse be String or Numpy.ndarray')
+        raise TypeError('read_image_from_source - Image source type must be String, Numpy.ndarray or pathlib.PosixPath')
 
     logger.info('read_image_from_source - Successfully read image from the source')
 

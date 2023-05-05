@@ -1,20 +1,21 @@
 # Import Standard Libraries
 import os
+import pathlib
+
 import cv2
 import sys
 from typing import List
+from typing import Tuple
+from pathlib import Path
 import numpy as np
 
 from urllib.request import urlretrieve
 from urllib.error import URLError
 
-# Set root path
-os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
-
 # Import Package Modules
-from packages.logging_module.logging_module import get_logger
-from packages.utils.utils import read_configuration
-from packages.object_detection.object_detection_utils import read_image_from_source, retrieve_image_width_and_height, \
+from src.logging_module.logging_module import get_logger
+from src.utils.utils import read_configuration
+from src.object_detection_yolov3.object_detection_utils import read_image_from_source, retrieve_image_width_and_height, \
     read_blob_from_image, retrieve_max_confident_class_index
 
 
@@ -69,12 +70,12 @@ class ObjectDetector:
         self.output_layers = self.__get_output_layers()
 
     def __read_classes(self,
-                       classes_file_path: str) -> List[str]:
+                       classes_file_path: Tuple[str]) -> List[str]:
         """
         Read the 'yolov3_classes.txt' file and retrieve the list of available classes
 
         Args:
-            classes_file_path: String classes file path
+            classes_file_path: Tuple[String] classes file path
 
         Returns:
             classes: List of String classes
@@ -84,20 +85,25 @@ class ObjectDetector:
 
         try:
 
-            self.logger.info('__read_classes - Reading file {}'.format(classes_file_path))
+            self.logger.info('__read_classes - Constructing the Classes Filepath')
+
+            # Construct the Path object from 'classes_file_path'
+            classes_file_path_pathlib = Path(__file__).parents[2] / classes_file_path[0] / classes_file_path[1]
+
+            self.logger.info('__read_classes - Reading file {}'.format(classes_file_path_pathlib))
 
             # Open the classes file and extract the list of available classes
-            with open(classes_file_path, 'r') as classes_file:
+            with open(classes_file_path_pathlib, 'r') as classes_file:
 
                 classes = [line.strip() for line in classes_file.readlines()]
 
         except FileNotFoundError:
 
-            raise FileNotFoundError('__read_classes - File {} not found'.format(classes_file_path))
+            raise FileNotFoundError('__read_classes - File {} not found'.format(classes_file_path_pathlib))
 
         else:
 
-            self.logger.info('__read_classes - Classes file {} read successfully'.format(classes_file_path))
+            self.logger.info('__read_classes - Classes file {} read successfully'.format(classes_file_path_pathlib))
 
         self.classes = classes
 
@@ -105,16 +111,16 @@ class ObjectDetector:
 
     def __read_neural_network(self,
                               nn_weights_url: str,
-                              model_weights_file_path: str,
-                              model_structure_file_path: str) -> cv2.dnn.Net:
+                              model_weights_file_path: Tuple[str],
+                              model_structure_file_path: Tuple[str]) -> cv2.dnn.Net:
         """
         Read YOLO v3 DarkNet trained neural network from the 'yolov3.weights' and 'yolov3.cfg' files.
         Download the 'yolov3.weights' file if not present
 
         Args:
             nn_weights_url: String URL for 'yolov3.weights'
-            model_weights_file_path: String path for 'yolov3.weights'
-            model_structure_file_path: String path for 'yolov3.cfg'
+            model_weights_file_path: Tuple[String] path for 'yolov3.weights'
+            model_structure_file_path: Tuple[String] path for 'yolov3.cfg'
 
         Returns:
             neural_network: cv2.dnn.Net Trained Neural Network
@@ -125,24 +131,33 @@ class ObjectDetector:
         # Retrieve yolov3.weights if not present
         try:
 
+            self.logger.info('__read_neural_network - Constructing the Model Weights Filepath')
+
+            # Construct the Path object from 'model_weights_file_path'
+            model_weights_file_path_pathlib = Path(__file__).parents[2] / model_weights_file_path[0] / \
+                model_weights_file_path[1]
+
             self.logger.info(
-                '__read_neural_network - Checking if the file {} is already downloaded'.format(model_weights_file_path))
+                '__read_neural_network - Checking if the file {} is already downloaded'.format(
+                    model_weights_file_path_pathlib))
 
             # Check whatever the 'yolov3.weights' file is not present and download it
-            if not os.path.isfile(model_weights_file_path):
+            if not os.path.isfile(model_weights_file_path_pathlib):
 
                 # Download 'yolov3.weights'
-                urlretrieve(nn_weights_url, model_weights_file_path)
+                urlretrieve(nn_weights_url, model_weights_file_path_pathlib)
 
-                self.logger.info('__read_neural_network - File {} download completed'.format(model_weights_file_path))
+                self.logger.info(
+                    '__read_neural_network - File {} download completed'.format(model_weights_file_path_pathlib))
 
             else:
 
-                self.logger.info('__read_neural_network - File {} already downloaded'.format(model_weights_file_path))
+                self.logger.info(
+                    '__read_neural_network - File {} already downloaded'.format(model_weights_file_path_pathlib))
 
         except FileNotFoundError as e:
 
-            raise FileNotFoundError('__read_neural_network - File {} not found'.format(model_weights_file_path))
+            raise FileNotFoundError('__read_neural_network - File {} not found'.format(model_weights_file_path_pathlib))
 
         except URLError:
 
@@ -150,15 +165,23 @@ class ObjectDetector:
 
         else:
 
-            self.logger.info('__read_neural_network - File {} is in the File System'.format(model_weights_file_path))
+            self.logger.info(
+                '__read_neural_network - File {} is in the File System'.format(model_weights_file_path_pathlib))
 
         self.logger.info('__read_neural_network - Instancing Neural Network')
 
-        # Read pr-trained model and configuration file if the required files are available
-        if os.path.isfile(model_weights_file_path) and os.path.isfile(model_structure_file_path):
+        self.logger.info('__read_neural_network - Constructing the Model Structure Filepath')
+
+        # Construct the Path object from 'model_weights_file_path'
+        model_structure_file_path_pathlib = Path(__file__).parents[2] / model_structure_file_path[0] / \
+            model_structure_file_path[1]
+
+        # Read pre-trained model and configuration file if the required files are available
+        if os.path.isfile(model_weights_file_path_pathlib) and os.path.isfile(model_structure_file_path_pathlib):
 
             # Define the Neural Network
-            neural_network = cv2.dnn.readNetFromDarknet(model_structure_file_path, model_weights_file_path)
+            neural_network = cv2.dnn.readNetFromDarknet(model_structure_file_path_pathlib.as_posix(),
+                                                        model_weights_file_path_pathlib.as_posix())
 
             # Set the Neural Network computation backend
             neural_network.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
@@ -208,12 +231,12 @@ class ObjectDetector:
         return output_layers
 
     def detect_single_object(self,
-                             image_source: str | np.ndarray) -> str:
+                             image_source: str | np.ndarray | pathlib.PosixPath) -> str:
         """
         Detect the class of the input image
 
         Args:
-            image_source: String image path from local File System | Numpy.ndarray image representation
+            image_source: String image path from local File System | Numpy.ndarray image representation | pathlib.PosixPath object
 
         Returns:
             detected_class: String detected class name
@@ -223,7 +246,7 @@ class ObjectDetector:
 
         self.logger.info('detect_single_object - Reading the image from the source')
 
-        # Read the image from a local file path or from a Numpy.ndarray image representation
+        # Read the image from a local file path (String or pathlib.PosixPath) or from a Numpy.ndarray image representation
         image = read_image_from_source(image_source)
 
         # Retrieve image dimensions

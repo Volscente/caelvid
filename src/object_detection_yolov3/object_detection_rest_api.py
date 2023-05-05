@@ -4,13 +4,10 @@ import cv2
 import numpy as np
 import os
 
-# Set root path
-os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
-
 # Import Package Modules
-from packages.logging_module.logging_module import get_logger
-from packages.object_detection.object_detection import ObjectDetector
-from packages.utils.utils import read_configuration
+from src.logging_module.logging_module import get_logger
+from src.object_detection_yolov3.object_detection import ObjectDetector
+from src.utils.utils import read_configuration
 
 # Setup logger
 logger = get_logger(os.path.basename(__file__).split('.')[0])

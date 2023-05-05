@@ -3,9 +3,7 @@ import logging.config
 import yaml
 import os
 import sys
-
-# Set root path
-os.chdir(os.environ['YOLO_OBJECT_DETECTION_PATH'])
+from pathlib import Path
 
 
 def get_logger(logger_name: str) -> logging.Logger:
@@ -22,7 +20,7 @@ def get_logger(logger_name: str) -> logging.Logger:
     try:
 
         # Read the log_configuration file
-        with open('./configuration/log_configuration.yaml', 'r') as file:
+        with open(Path(__file__).parents[2] / 'configuration' / 'log_configuration.yaml', 'r') as file:
             log_config = yaml.safe_load(file.read())
 
         # Set logging configuration file
